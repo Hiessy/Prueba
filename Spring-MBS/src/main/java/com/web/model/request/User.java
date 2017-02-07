@@ -7,6 +7,7 @@ public class User {
 	String nombre;
 	String apellido;
 	String telefono;
+	String contraseña;
 	String dni;
 	String mail;
 	String sexo;
@@ -77,9 +78,18 @@ public class User {
 		this.fechDeNacimiento = fechDeNacimiento;
 	}
 
+	public String getContraseña() {
+		return contraseña;
+	}
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
+	}
+
 	@Override
 	public String toString() {
-		return "User [nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + ", dni=" + dni + ", mail=" + mail + ", sexo=" + sexo + ", fechDeNacimiento=" + fechDeNacimiento + "]";
+		return "User [nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + ", contraseña=" + contraseña + ", dni=" + dni + ", mail=" + mail + ", sexo=" + sexo + ", fechDeNacimiento=" + fechDeNacimiento + ", address=" + address + "]";
 	}
+
 
 }

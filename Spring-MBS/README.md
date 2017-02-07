@@ -1,3 +1,10 @@
+Addon de Firefox RESTClient
+
+Descargar SpringTest.java
+
+navegar a la ruta en el cmd: java -jar SpringTest.jar
+
+
 Validar: Usuario por correo:contraseña
 Metodo POST : URL: http://localhost:8080/validate?email=martin@mail.com&string=prueba123
 
@@ -6,8 +13,8 @@ Metodo GET : URL: http://localhost:8080/find?email=martin@mail.com
 
 Agregar: Usuario
 Metodo POST : URL: http://localhost:8080/register
-Headers Remove All
-Content-Type: application/json×
+
+Content-Type: application/json
 
         {
             "nombre": "Martin",
@@ -15,6 +22,7 @@ Content-Type: application/json×
             "telefono": "54 11 44315780",
             "dni": "27093141",
             "mail": "martin@mail.com",
+            "contraseña":"prueba123"
             "sexo": "M",
             "fechDeNacimiento": "06/03/1979",
             "address":

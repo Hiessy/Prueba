@@ -29,7 +29,8 @@ import com.web.model.response.Access;
 public class UserController {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-//
+
+	//
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<ServerResponse<User>> registerUser(@RequestBody User user) {
 
@@ -67,7 +68,7 @@ public class UserController {
 			accessMetaData.setHttpStatus(HttpStatus.OK);
 			accesResponse.setMetaData(accessMetaData);
 			// TODO validation method
-			
+
 			accesResponse.setData(checkUserAuthorization(email, pass));
 			accessMetaData.setMessage("User validate succesfully");
 			LOGGER.info("User was validated succesfully");
@@ -95,11 +96,11 @@ public class UserController {
 			userSearchResponse.setMetaData(userSearchMetaData);
 			userSearchMetaData.setMessage("User found succesfully");
 			// TODO get user method
-			
+
 			userSearchResponse.setData(getUserByEmail(email));
-			if(userSearchResponse.getData() == null)
+			if (userSearchResponse.getData() == null)
 				throw new RuntimeException("User not found");
-			
+
 			LOGGER.info("User was found succesfully");
 		} catch (Exception e) {
 			userSearchMetaData.setHttpStatus(HttpStatus.BAD_REQUEST);
@@ -120,7 +121,7 @@ public class UserController {
 			adress = new ArrayList<Address>();
 			Address addr = new Address();
 			Address addr2 = new Address();
-			
+
 			user.setMail("martin@mail.com");
 			user.setNombre("Martin");
 			user.setApellido("Diaz");
@@ -128,17 +129,17 @@ public class UserController {
 			user.setFechDeNacimiento("06/03/1979");
 			user.setSexo("M");
 			user.setTelefono("54 11 44315780");
-
+			user.setContraseña("prueba123");
 			addr.setPais("Argentina");
 			addr.setProvincia("CABA");
 			addr.setBarrio("Caballito");
 			addr.setDireccion("direccion larga");
-			
+
 			addr2.setPais("Argentina");
 			addr2.setProvincia("CABA");
 			addr2.setBarrio("Cogland");
 			addr2.setDireccion("direccion larga 2");
-			
+
 			adress.add(addr);
 			adress.add(addr2);
 			user.setAddress(adress);
