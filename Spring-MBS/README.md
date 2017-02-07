@@ -1,0 +1,1 @@
+Metodo POST : URL: http://localhost:8080/validate?email=martin@mail.com&string=passwordHaseadha
