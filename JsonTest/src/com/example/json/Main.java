@@ -5,6 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import com.example.json.model.Access;
 import com.example.json.model.User;
 import com.example.json.model.response.ServerResponse;
 /*
@@ -29,7 +30,7 @@ public class Main {
 	ServerResponse<User> serverResponseGet = hacerGet();
 
 	//Declaro un objeto del tipo ServerResponse para que reciva la respuesta de la consulta del tipo POST. 
-	ServerResponse<User> serverResponsePost = hacerPost();
+	ServerResponse<Access> serverResponsePost = hacerPost();
 
 	System.out.println("***************************************************************************");
 	System.out.println("*****************************Resultado del GET*****************************");
@@ -46,12 +47,12 @@ public class Main {
 	System.out.println(serverResponsePost.getData());
     }
 
-    public static ServerResponse<User> hacerPost() {
+    public static ServerResponse<Access> hacerPost() {
 	
 	//Declaro un Objeto Mapper para se encarga de tomar el InputStream e intanciar el objeto que lo recibe y le asigna los valores de cada attributo
 	ObjectMapper mapper = new ObjectMapper();
 	//Declaro el objeto que va a recibir la respuesta de la consulta, en este caso es ServerResponse del tipo User
-	ServerResponse<User> serverResponse = null;
+	ServerResponse<Access> serverResponse = null;
 	
 	try {
 	    //Creo un objeto de URL con la URL de consulta
@@ -85,7 +86,7 @@ public class Main {
 	//Declaro un Objeto Mapper para se encarga de tomar el InputStream e intanciar el objeto que lo recibe y le asigna los valores de cada attributo
 	ObjectMapper mapper = new ObjectMapper();
 	//Declaro el objeto que va a recibir la respuesta de la consulta, en este caso es ServerResponse del tipo User
-	ServerResponse<User> serverResponse = new ServerResponse<User>();
+	ServerResponse<User> serverResponse = null;
 
 	try {
 	    //Creo un objeto de URL con la URL de consulta
