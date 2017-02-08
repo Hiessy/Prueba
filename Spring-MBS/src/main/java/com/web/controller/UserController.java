@@ -57,7 +57,7 @@ public class UserController {
 	}
 
 	// http://localhost:8080/validate?email=martin@mail.com&string=prueba123
-	@RequestMapping(value = "/validate", params = { "email", "string" }, method = { RequestMethod.GET })
+	@RequestMapping(value = "/validate", params = { "email", "string" }, method = { RequestMethod.POST })
 	public ResponseEntity<ServerResponse<Access>> validate(@RequestParam("email") String email, @RequestParam("string") String pass) {
 
 		ServerResponse<Access> accesResponse = new ServerResponse<Access>();
