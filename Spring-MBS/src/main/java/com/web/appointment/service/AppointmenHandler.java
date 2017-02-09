@@ -12,6 +12,7 @@ public class AppointmenHandler {
 
     private Slot workHours;
 
+    // TODO Contemplar dias
     public AppointmenHandler(Slot workHours) {
 	this.workHours = workHours;
     }

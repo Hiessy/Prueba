@@ -4,7 +4,14 @@ Descargar SpringTest.java
 
 navegar a la ruta en el cmd: java -jar SpringTest.jar
 
+Metodos de turnos>
+Consultar Todos los Turnos de un negocio por id:
+Metodo GET : http://localhost:8080/manager/total/appointments?id=1234
 
+Consultar libres Turnos de un negocio por id:
+Metodo GET : http://localhost:8080/manager/free/appointments?id=1234
+
+Motodos de usuarios>
 Validar: Usuario por correo:contraseña
 Metodo POST : URL: http://localhost:8080/validate?email=martin@mail.com&string=prueba123
 
@@ -13,12 +20,6 @@ Metodo GET : URL: http://localhost:8080/find?email=martin@mail.com
 
 Agregar: Usuario
 Metodo POST : URL: http://localhost:8080/register
-
-Consultar Todos los Turnos de un negocio por id:
-Metodo GET : http://localhost:8080/manager/total/appointments?id=1234
-
-Consultar libres Turnos de un negocio por id:
-Metodo GET : http://localhost:8080/manager/free/appointments?id=1234
 
 Content-Type: application/json
 
