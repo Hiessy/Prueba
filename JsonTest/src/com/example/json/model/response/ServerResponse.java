@@ -2,13 +2,16 @@ package com.example.json.model.response;
 
 import java.io.Serializable;
 
+import org.codehaus.jackson.annotate.JsonCreator;
+
 public class ServerResponse<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private MetaData metaData;
 	private T data;
-
+	
+	@JsonCreator
 	public ServerResponse() {
 		super();
 	}

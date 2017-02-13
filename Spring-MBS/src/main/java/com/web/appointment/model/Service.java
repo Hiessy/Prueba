@@ -3,11 +3,12 @@ package com.web.appointment.model;
 import java.util.HashMap;
 import java.util.List;
 
-public class Branch {
+public class Service {
 	
-	HashMap<SlotState, List<Appointment>> serviceAppointments = new HashMap<SlotState, List<Appointment>>();
+	private String serviceName;
+	private HashMap<SlotState, List<Appointment>> serviceAppointments = new HashMap<SlotState, List<Appointment>>();
 
-	public HashMap<SlotState, List<Appointment>>  getBranchAppointments() {
+	public HashMap<SlotState, List<Appointment>> getBranchAppointments() {
 		return serviceAppointments;
 	}
 
@@ -45,6 +46,4 @@ public class Branch {
 		return true;
 	}
 
-
-	
 }

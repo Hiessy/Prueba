@@ -2,6 +2,9 @@ package com.example.json.model;
 
 //TODO:pagina de registracion
 public class Access {
+	String user;
+	String pass;
+	String token;
     private String hash;
     private boolean accepted;
 
@@ -21,7 +24,34 @@ public class Access {
 	this.accepted = accepted;
     }
 
-	String user;
-	String pass;
-	String token;
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	@Override
+	public String toString() {
+		return "Access [user=" + user + ", pass=" + pass + ", token=" + token + ", hash=" + hash + ", accepted=" + accepted + "]";
+	}
+
+
 }

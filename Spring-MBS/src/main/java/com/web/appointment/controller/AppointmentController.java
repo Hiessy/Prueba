@@ -23,7 +23,7 @@ import com.web.appointment.model.SlotState;
 import com.web.appointment.service.AppointmenHandler;
 
 @RestController
-@RequestMapping(value = "/manager")
+@RequestMapping(value = "/api")
 public class AppointmentController {
 
     private static Logger LOGGER = LoggerFactory.getLogger(AppointmentController.class);
