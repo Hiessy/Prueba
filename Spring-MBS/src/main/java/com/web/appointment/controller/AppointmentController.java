@@ -18,6 +18,7 @@ import com.web.application.model.response.MetaData;
 import com.web.application.model.response.ServerResponse;
 import com.web.appointment.model.Appointment;
 import com.web.appointment.model.Branch;
+import com.web.appointment.model.DailySchedule;
 import com.web.appointment.model.Slot;
 import com.web.appointment.model.SlotState;
 import com.web.appointment.service.AppointmenHandler;
@@ -26,147 +27,186 @@ import com.web.appointment.service.AppointmenHandler;
 @RequestMapping(value = "/api")
 public class AppointmentController {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(AppointmentController.class);
-    AppointmenHandler appointmenHandler = new AppointmenHandler(new Slot(1, "Dr Dentista", 14, 00, 20, 0, 15));// TODO
-													       // esto
-													       // deberia
-													       // realizar
-													       // una
-													       // consulta
-													       // bajar
-													       // de
-													       // aca
+	private int id = 1;
+	private String subCategory = "Dentist";
+	private int beginHour = 14;
+	private int beginMinute = 00;
+	private int endHour = 20;
+	private int endMinute = 00;
+	private int appointmentDuration = 5;
+	private List<DailySchedule> workingDaysSchedule;
 
-    @RequestMapping(value = "/total/appointments", params = "id", method = RequestMethod.GET)
-    public ResponseEntity<ServerResponse<HashMap<String, Branch>>> getTurnos(@RequestParam("id") String id) throws IOException {
+	private static Logger LOGGER = LoggerFactory.getLogger(AppointmentController.class);
+	private AppointmenHandler appointmenHandler = new AppointmenHandler(new Slot(id, subCategory, beginHour, beginMinute, endHour, endMinute, appointmentDuration));// TODO
 
-	ServerResponse<HashMap<String, Branch>> brachResponse = new ServerResponse<HashMap<String, Branch>>();
-	MetaData accessMetaData = new MetaData();
-	
-	accessMetaData.setInfo("Total Appointments for business id: " + id);
-	try {
+	@RequestMapping(value = "/total/appointments", params = "id", method = RequestMethod.GET)
+	public ResponseEntity<ServerResponse<HashMap<String, Branch>>> getSlots(@RequestParam("id") String id) throws IOException {
 
-	    accessMetaData.setHttpStatus(HttpStatus.OK);
-	    brachResponse.setMetaData(accessMetaData);
-	    // TODO validation method
+		ServerResponse<HashMap<String, Branch>> brachResponse = new ServerResponse<HashMap<String, Branch>>();
+		MetaData accessMetaData = new MetaData();
 
-	    brachResponse.setData(generateAllSlots(id));
-	    accessMetaData.setMessage("Appointments obtained succesfully");
-	    LOGGER.info("Appointments obtained succesfully");
+		accessMetaData.setInfo("Total Appointments for business id: " + id);
+		try {
 
-	} catch (Exception e) {
-	    accessMetaData.setHttpStatus(HttpStatus.BAD_REQUEST);
-	    accessMetaData.setMessage("Unable to retrive appointments");
-	    LOGGER.error("Unable to retrive appointments" + e.getMessage());
+			accessMetaData.setHttpStatus(HttpStatus.OK);
+			brachResponse.setMetaData(accessMetaData);
+			// TODO validation method
+
+			brachResponse.setData(generateAllSlots(id));
+			accessMetaData.setMessage("Appointments obtained succesfully");
+			LOGGER.info("Appointments obtained succesfully");
+
+		} catch (Exception e) {
+			accessMetaData.setHttpStatus(HttpStatus.BAD_REQUEST);
+			accessMetaData.setMessage("Unable to retrive appointments");
+			LOGGER.error("Unable to retrive appointments" + e.getMessage());
+		}
+		brachResponse.setMetaData(accessMetaData);
+		return new ResponseEntity<ServerResponse<HashMap<String, Branch>>>(brachResponse, HttpStatus.OK);
+
 	}
-	brachResponse.setMetaData(accessMetaData);
-	return new ResponseEntity<ServerResponse<HashMap<String, Branch>>>(brachResponse, HttpStatus.OK);
 
-    }
+	@RequestMapping(value = "/free/appointments", params = "id", method = RequestMethod.GET)
+	public ResponseEntity<ServerResponse<HashMap<String, List<Appointment>>>> getOpenSlots(@RequestParam("id") String id) throws IOException {
 
-    @RequestMapping(value = "/free/appointments", params = "id", method = RequestMethod.GET)
-    public ResponseEntity<ServerResponse<HashMap<String, List<Appointment>>>> getTurnosAbiertos(@RequestParam("id") String id) throws IOException {
+		ServerResponse<HashMap<String, List<Appointment>>> brachResponse = new ServerResponse<HashMap<String, List<Appointment>>>();
+		MetaData accessMetaData = new MetaData();
 
-	ServerResponse<HashMap<String, List<Appointment>>> brachResponse = new ServerResponse<HashMap<String, List<Appointment>>>();
-	MetaData accessMetaData = new MetaData();
-	
-	accessMetaData.setInfo("Free Appointments for business id: " + id);
-	try {
-	    accessMetaData.setHttpStatus(HttpStatus.OK);
-	    accessMetaData.setMessage("Appointments obtained succesfully");
-	    // TODO consulta db
-	    brachResponse.setData(generateTakenSlots(id));
-	    //TODO poner los resultados de las Uri posbiles
-	    LOGGER.info("Appointments obtained succesfully");
+		accessMetaData.setInfo("Free Appointments for business id: " + id);
+		try {
+			accessMetaData.setHttpStatus(HttpStatus.OK);
+			accessMetaData.setMessage("Appointments obtained succesfully");
+			// TODO consulta db
+			brachResponse.setData(generateTakenSlots(id));
+			// TODO poner los resultados de las Uri posbiles
+			LOGGER.info("Appointments obtained succesfully");
 
-	} catch (Exception e) {
-	    accessMetaData.setHttpStatus(HttpStatus.BAD_REQUEST);
-	    accessMetaData.setMessage("Unable to retrive appointments");
-	    //TODO poner un ejemplo correcto
-	    LOGGER.error("Unable to retrive appointments error: " + e.getMessage());
+		} catch (Exception e) {
+			accessMetaData.setHttpStatus(HttpStatus.BAD_REQUEST);
+			accessMetaData.setMessage("Unable to retrive appointments");
+			// TODO poner un ejemplo correcto
+			LOGGER.error("Unable to retrive appointments error: " + e.getMessage());
+		}
+		brachResponse.setMetaData(accessMetaData);
+		return new ResponseEntity<ServerResponse<HashMap<String, List<Appointment>>>>(brachResponse, HttpStatus.OK);
+
 	}
-	brachResponse.setMetaData(accessMetaData);
-	return new ResponseEntity<ServerResponse<HashMap<String, List<Appointment>>>>(brachResponse, HttpStatus.OK);
 
-    }
+	@RequestMapping(value = "/all", params = "id", method = RequestMethod.GET)
+	public ResponseEntity<ServerResponse<List<DailySchedule>>> getTurnosAbiertos(@RequestParam("id") String id) throws IOException {
 
-    private HashMap<String, List<Appointment>> generateTakenSlots(String id) {
+		ServerResponse<List<DailySchedule>> brachResponse = new ServerResponse<List<DailySchedule>>();
+		MetaData accessMetaData = new MetaData();
 
-	HashMap<String, List<Appointment>> branchs = new HashMap<String, List<Appointment>>();
+		accessMetaData.setInfo("Free Appointments for business id: " + id);
+		try {
+			accessMetaData.setHttpStatus(HttpStatus.OK);
+			accessMetaData.setMessage("Appointments obtained succesfully");
+			// TODO consulta db
+			brachResponse.setData(getDailySchedule());
+			// TODO poner los resultados de las Uri posbiles
+			LOGGER.info("Appointments obtained succesfully");
 
-	List<Appointment> takenSlots = new ArrayList<Appointment>();
+		} catch (Exception e) {
+			accessMetaData.setHttpStatus(HttpStatus.BAD_REQUEST);
+			accessMetaData.setMessage("Unable to retrive appointments");
+			// TODO poner un ejemplo correcto
+			LOGGER.error("Unable to retrive appointments error: " + e.getMessage());
+		}
+		brachResponse.setMetaData(accessMetaData);
+		return new ResponseEntity<ServerResponse<List<DailySchedule>>>(brachResponse, HttpStatus.OK);
 
-	takenSlots.add(new Appointment(1, "Dr Dentista", "Martin", SlotState.CONFIRM, 1, 1, 2016, 14, 0, 15, 0));
-	takenSlots.add(new Appointment(1, "Dr Dentista", "Mariela", 1, 1, 2016, 15, 0, 15, 15));
-	takenSlots.add(new Appointment(1, "Dr Dentista", "Marcos", 1, 1, 2016, 17, 30, 18, 0));
-	takenSlots.add(new Appointment(1, "Dr Dentista", "Mario", SlotState.CLOSED, 1, 1, 2016, 16, 30, 17, 0));
-	takenSlots.add(new Appointment(1, "Dr Dentista", "Marcela", SlotState.SELECTED, 1, 1, 2016, 18, 30, 20, 0));
+	}
 
-	branchs.put("Sucursal 1", appointmenHandler.getFreeAppointments(takenSlots).getBranchAppointments().get(SlotState.OPEN));
+	private HashMap<String, List<Appointment>> generateTakenSlots(String id) {
 
-	takenSlots.add(new Appointment(2, "Dr Dentista", "Julian", SlotState.CONFIRM, 1, 1, 2016, 14, 45, 15, 15));
-	takenSlots.add(new Appointment(2, "Dr Dentista", "Julia", SlotState.SELECTED, 1, 1, 2016, 17, 45, 18, 15));
-	takenSlots.add(new Appointment(2, "Dr Dentista", "Julieta", SlotState.SELECTED, 1, 1, 2016, 15, 15, 15, 45));
-	takenSlots.add(new Appointment(2, "Dr Dentista", "Josefina", SlotState.SELECTED, 1, 1, 2016, 16, 30, 17, 0));
-	takenSlots.add(new Appointment(2, "Dr Dentista", "Jorge", SlotState.CLOSED, 1, 1, 2016, 18, 30, 19, 15));
+		HashMap<String, List<Appointment>> branchs = new HashMap<String, List<Appointment>>();
 
-	branchs.put("Sucursal 2", appointmenHandler.getFreeAppointments(takenSlots).getBranchAppointments().get(SlotState.OPEN));
+		List<Appointment> takenSlots = new ArrayList<Appointment>();
 
-	takenSlots.add(new Appointment(3, "Dr Dentista", "Vanina", SlotState.CONFIRM, 1, 1, 2016, 14, 00, 15, 0));
-	takenSlots.add(new Appointment(3, "Dr Dentista", "Veronica", 1, 1, 2016, 15, 0, 16, 0));
-	takenSlots.add(new Appointment(3, "Dr Dentista", "Valentina", SlotState.CONFIRM, 1, 1, 2016, 16, 0, 16, 45));
-	takenSlots.add(new Appointment(3, "Dr Dentista", "Valeria", SlotState.CLOSED, 1, 1, 2016, 17, 0, 18, 0));
-	takenSlots.add(new Appointment(3, "Dr Dentista", "Victoria", SlotState.CLOSED, 1, 1, 2016, 18, 30, 19, 30));
+		takenSlots.add(new Appointment(1, "Dr Dentista", "Martin", SlotState.CONFIRM, 1, 1, 2016, 14, 0, 15, 0));
+		takenSlots.add(new Appointment(1, "Dr Dentista", "Mariela", 1, 1, 2016, 15, 0, 15, 15));
+		takenSlots.add(new Appointment(1, "Dr Dentista", "Marcos", 1, 1, 2016, 17, 30, 18, 0));
+		takenSlots.add(new Appointment(1, "Dr Dentista", "Mario", SlotState.CLOSED, 1, 1, 2016, 16, 30, 17, 0));
+		takenSlots.add(new Appointment(1, "Dr Dentista", "Marcela", SlotState.SELECTED, 1, 1, 2016, 18, 30, 20, 0));
 
-	branchs.put("Sucursal 3", appointmenHandler.getFreeAppointments(takenSlots).getBranchAppointments().get(SlotState.OPEN));
+		branchs.put("Sucursal 1", appointmenHandler.getFreeAppointments(takenSlots).getBranchAppointments().get(SlotState.OPEN));
 
-	takenSlots.add(new Appointment(4, "Cama 4", "Silvina", SlotState.CLOSED, 1, 1, 2016, 15, 0, 15, 15));
-	takenSlots.add(new Appointment(4, "Cama 4", "Sandra", SlotState.CONFIRM, 1, 1, 2016, 17, 45, 18, 0));
-	takenSlots.add(new Appointment(4, "Cama 4", "Santino", SlotState.CLOSED, 1, 1, 2016, 15, 30, 16, 0));
-	takenSlots.add(new Appointment(4, "Cama 4", "Sergio", SlotState.SELECTED, 1, 1, 2016, 16, 0, 17, 0));
-	takenSlots.add(new Appointment(4, "Cama 4", "Sebastian", 1, 1, 2016, 19, 30, 20, 0));
+		takenSlots.add(new Appointment(2, "Dr Dentista", "Julian", SlotState.CONFIRM, 1, 1, 2016, 14, 45, 15, 15));
+		takenSlots.add(new Appointment(2, "Dr Dentista", "Julia", SlotState.SELECTED, 1, 1, 2016, 17, 45, 18, 15));
+		takenSlots.add(new Appointment(2, "Dr Dentista", "Julieta", SlotState.SELECTED, 1, 1, 2016, 15, 15, 15, 45));
+		takenSlots.add(new Appointment(2, "Dr Dentista", "Josefina", SlotState.SELECTED, 1, 1, 2016, 16, 30, 17, 0));
+		takenSlots.add(new Appointment(2, "Dr Dentista", "Jorge", SlotState.CLOSED, 1, 1, 2016, 18, 30, 19, 15));
 
-	branchs.put("Sucursal 4", appointmenHandler.getFreeAppointments(takenSlots).getBranchAppointments().get(SlotState.OPEN));
+		branchs.put("Sucursal 2", appointmenHandler.getFreeAppointments(takenSlots).getBranchAppointments().get(SlotState.OPEN));
 
-	return branchs;
-    }
+		takenSlots.add(new Appointment(3, "Dr Dentista", "Vanina", SlotState.CONFIRM, 1, 1, 2016, 14, 00, 15, 0));
+		takenSlots.add(new Appointment(3, "Dr Dentista", "Veronica", 1, 1, 2016, 15, 0, 16, 0));
+		takenSlots.add(new Appointment(3, "Dr Dentista", "Valentina", SlotState.CONFIRM, 1, 1, 2016, 16, 0, 16, 45));
+		takenSlots.add(new Appointment(3, "Dr Dentista", "Valeria", SlotState.CLOSED, 1, 1, 2016, 17, 0, 18, 0));
+		takenSlots.add(new Appointment(3, "Dr Dentista", "Victoria", SlotState.CLOSED, 1, 1, 2016, 18, 30, 19, 30));
 
-    private HashMap<String, Branch> generateAllSlots(String id) {
+		branchs.put("Sucursal 3", appointmenHandler.getFreeAppointments(takenSlots).getBranchAppointments().get(SlotState.OPEN));
 
-	HashMap<String, Branch> branchs = new HashMap<String, Branch>();
-	List<Appointment> takenSlots = new ArrayList<Appointment>();
+		takenSlots.add(new Appointment(4, "Cama 4", "Silvina", SlotState.CLOSED, 1, 1, 2016, 15, 0, 15, 15));
+		takenSlots.add(new Appointment(4, "Cama 4", "Sandra", SlotState.CONFIRM, 1, 1, 2016, 17, 45, 18, 0));
+		takenSlots.add(new Appointment(4, "Cama 4", "Santino", SlotState.CLOSED, 1, 1, 2016, 15, 30, 16, 0));
+		takenSlots.add(new Appointment(4, "Cama 4", "Sergio", SlotState.SELECTED, 1, 1, 2016, 16, 0, 17, 0));
+		takenSlots.add(new Appointment(4, "Cama 4", "Sebastian", 1, 1, 2016, 19, 30, 20, 0));
 
-	takenSlots.add(new Appointment(1, "Dr Dentista", "Martin", SlotState.CONFIRM, 1, 1, 2016, 14, 0, 15, 0));
-	takenSlots.add(new Appointment(1, "Dr Dentista", "Mariela", 1, 1, 2016, 15, 0, 15, 15));
-	takenSlots.add(new Appointment(1, "Dr Dentista", "Marcos", 1, 1, 2016, 17, 30, 18, 0));
-	takenSlots.add(new Appointment(1, "Dr Dentista", "Mario", SlotState.CLOSED, 1, 1, 2016, 16, 30, 17, 0));
-	takenSlots.add(new Appointment(1, "Dr Dentista", "Marcela", SlotState.SELECTED, 1, 1, 2016, 18, 30, 20, 0));
-	branchs.put("Sucursal 1", appointmenHandler.getFreeAppointments(takenSlots));
+		branchs.put("Sucursal 4", appointmenHandler.getFreeAppointments(takenSlots).getBranchAppointments().get(SlotState.OPEN));
 
-	takenSlots.add(new Appointment(2, "Dr Dentista", "Julian", SlotState.CONFIRM, 1, 1, 2016, 14, 45, 15, 15));
-	takenSlots.add(new Appointment(2, "Dr Dentista", "Julia", SlotState.SELECTED, 1, 1, 2016, 17, 45, 18, 15));
-	takenSlots.add(new Appointment(2, "Dr Dentista", "Julieta", SlotState.SELECTED, 1, 1, 2016, 15, 15, 15, 45));
-	takenSlots.add(new Appointment(2, "Dr Dentista", "Josefina", SlotState.SELECTED, 1, 1, 2016, 16, 30, 17, 0));
-	takenSlots.add(new Appointment(2, "Dr Dentista", "Jorge", SlotState.CLOSED, 1, 1, 2016, 18, 30, 19, 15));
+		return branchs;
+	}
 
-	branchs.put("Sucursal 2", appointmenHandler.getFreeAppointments(takenSlots));
+	private HashMap<String, Branch> generateAllSlots(String id) {
 
-	takenSlots.add(new Appointment(3, "Dr Dentista", "Vanina", SlotState.CONFIRM, 1, 1, 2016, 14, 00, 15, 0));
-	takenSlots.add(new Appointment(3, "Dr Dentista", "Veronica", 1, 1, 2016, 15, 0, 16, 0));
-	takenSlots.add(new Appointment(3, "Dr Dentista", "Valentina", SlotState.CONFIRM, 1, 1, 2016, 16, 0, 16, 45));
-	takenSlots.add(new Appointment(3, "Dr Dentista", "Valeria", SlotState.CLOSED, 1, 1, 2016, 17, 0, 18, 0));
-	takenSlots.add(new Appointment(3, "Dr Dentista", "Victoria", SlotState.CLOSED, 1, 1, 2016, 18, 30, 19, 30));
+		HashMap<String, Branch> branchs = new HashMap<String, Branch>();
+		List<Appointment> takenSlots = new ArrayList<Appointment>();
 
-	branchs.put("Sucursal 3", appointmenHandler.getFreeAppointments(takenSlots));
+		takenSlots.add(new Appointment(1, "Dr Dentista", "Martin", SlotState.CONFIRM, 1, 1, 2016, 14, 0, 15, 0));
+		takenSlots.add(new Appointment(1, "Dr Dentista", "Mariela", 1, 1, 2016, 15, 0, 15, 15));
+		takenSlots.add(new Appointment(1, "Dr Dentista", "Marcos", 1, 1, 2016, 17, 30, 18, 0));
+		takenSlots.add(new Appointment(1, "Dr Dentista", "Mario", SlotState.CLOSED, 1, 1, 2016, 16, 30, 17, 0));
+		takenSlots.add(new Appointment(1, "Dr Dentista", "Marcela", SlotState.SELECTED, 1, 1, 2016, 18, 30, 20, 0));
+		branchs.put("Sucursal 1", appointmenHandler.getFreeAppointments(takenSlots));
 
-	takenSlots.add(new Appointment(4, "Cama 4", "Silvina", SlotState.CLOSED, 1, 1, 2016, 15, 0, 15, 15));
-	takenSlots.add(new Appointment(4, "Cama 4", "Sandra", SlotState.CONFIRM, 1, 1, 2016, 17, 45, 18, 0));
-	takenSlots.add(new Appointment(4, "Cama 4", "Santino", SlotState.CLOSED, 1, 1, 2016, 15, 30, 16, 0));
-	takenSlots.add(new Appointment(4, "Cama 4", "Sergio", SlotState.SELECTED, 1, 1, 2016, 16, 0, 17, 0));
-	takenSlots.add(new Appointment(4, "Cama 4", "Sebastian", 1, 1, 2016, 19, 30, 20, 0));
+		takenSlots.add(new Appointment(2, "Dr Dentista", "Julian", SlotState.CONFIRM, 1, 1, 2016, 14, 45, 15, 15));
+		takenSlots.add(new Appointment(2, "Dr Dentista", "Julia", SlotState.SELECTED, 1, 1, 2016, 17, 45, 18, 15));
+		takenSlots.add(new Appointment(2, "Dr Dentista", "Julieta", SlotState.SELECTED, 1, 1, 2016, 15, 15, 15, 45));
+		takenSlots.add(new Appointment(2, "Dr Dentista", "Josefina", SlotState.SELECTED, 1, 1, 2016, 16, 30, 17, 0));
+		takenSlots.add(new Appointment(2, "Dr Dentista", "Jorge", SlotState.CLOSED, 1, 1, 2016, 18, 30, 19, 15));
 
-	branchs.put("Sucursal 4", appointmenHandler.getFreeAppointments(takenSlots));
+		branchs.put("Sucursal 2", appointmenHandler.getFreeAppointments(takenSlots));
 
-	return branchs;
-    }
+		takenSlots.add(new Appointment(3, "Dr Dentista", "Vanina", SlotState.CONFIRM, 1, 1, 2016, 14, 00, 15, 0));
+		takenSlots.add(new Appointment(3, "Dr Dentista", "Veronica", 1, 1, 2016, 15, 0, 16, 0));
+		takenSlots.add(new Appointment(3, "Dr Dentista", "Valentina", SlotState.CONFIRM, 1, 1, 2016, 16, 0, 16, 45));
+		takenSlots.add(new Appointment(3, "Dr Dentista", "Valeria", SlotState.CLOSED, 1, 1, 2016, 17, 0, 18, 0));
+		takenSlots.add(new Appointment(3, "Dr Dentista", "Victoria", SlotState.CLOSED, 1, 1, 2016, 18, 30, 19, 30));
+
+		branchs.put("Sucursal 3", appointmenHandler.getFreeAppointments(takenSlots));
+
+		takenSlots.add(new Appointment(4, "Cama 4", "Silvina", SlotState.CLOSED, 1, 1, 2016, 15, 0, 15, 15));
+		takenSlots.add(new Appointment(4, "Cama 4", "Sandra", SlotState.CONFIRM, 1, 1, 2016, 17, 45, 18, 0));
+		takenSlots.add(new Appointment(4, "Cama 4", "Santino", SlotState.CLOSED, 1, 1, 2016, 15, 30, 16, 0));
+		takenSlots.add(new Appointment(4, "Cama 4", "Sergio", SlotState.SELECTED, 1, 1, 2016, 16, 0, 17, 0));
+		takenSlots.add(new Appointment(4, "Cama 4", "Sebastian", 1, 1, 2016, 19, 30, 20, 0));
+
+		branchs.put("Sucursal 4", appointmenHandler.getFreeAppointments(takenSlots));
+
+		return branchs;
+	}
+
+	private List<DailySchedule> getDailySchedule() {
+		List<DailySchedule> workingDaysSchedule = new ArrayList<DailySchedule>();
+		for (int z = 0; z < 21; z++) {
+			DailySchedule daily = new DailySchedule();
+			daily.setDailySchedule(generateAllSlots("1"));
+			workingDaysSchedule.add(daily);
+		}
+
+		return workingDaysSchedule;
+
+	}
 }
