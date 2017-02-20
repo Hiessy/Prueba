@@ -1,88 +1,63 @@
 package com.web.generic.model;
 
+import java.util.List;
+
 import com.web.generic.model.enums.ProviderState;
-import com.web.generic.model.enums.BranchType;
 
 public class Branch {
 
-	private Integer branchId;// Id_Sucursal
-	private Integer providerId;// Id_Proveedor
-	private Integer managerId;// Responsable_Sucursal
-	private Integer telephone;// Telefono
+	private int branchId;// Id_Sucursal
+	private int providerId;// Id_Proveedor
+	private int managerId;// Responsable_Sucursal
+	private int telephone;// Telefono
 	private Address address;
-	private String brachEmail;// Mail_sucursal
-	private BranchType brachType;// Tipo_Sucursal (Propio o Franquicia)
 	private ProviderState branchState;// Estado_Sucursal
-
-	public Integer getBrachId() {
+	private List<Service> services;
+	public int getBranchId() {
 		return branchId;
 	}
-
-	public void setBrachId(Integer brachId) {
-		this.branchId = brachId;
+	public void setBranchId(int branchId) {
+		this.branchId = branchId;
 	}
-
-	public Integer getProviderId() {
+	public int getProviderId() {
 		return providerId;
 	}
-
-	public void setProviderId(Integer providerId) {
+	public void setProviderId(int providerId) {
 		this.providerId = providerId;
 	}
-
-	public Integer getManagerId() {
+	public int getManagerId() {
 		return managerId;
 	}
-
-	public void setManagerId(Integer managerId) {
+	public void setManagerId(int managerId) {
 		this.managerId = managerId;
 	}
-
-	public Integer getTelephone() {
+	public int getTelephone() {
 		return telephone;
 	}
-
-	public void setTelephone(Integer telephone) {
+	public void setTelephone(int telephone) {
 		this.telephone = telephone;
 	}
-
 	public Address getAddress() {
 		return address;
 	}
-
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-
-
-	public String getBrachEmail() {
-		return brachEmail;
-	}
-
-	public void setBrachEmail(String brachEmail) {
-		this.brachEmail = brachEmail;
-	}
-
-	public BranchType getBrachType() {
-		return brachType;
-	}
-
-	public void setBrachType(BranchType brachType) {
-		this.brachType = brachType;
-	}
-
 	public ProviderState getBranchState() {
 		return branchState;
 	}
-
 	public void setBranchState(ProviderState branchState) {
 		this.branchState = branchState;
 	}
-
+	public List<Service> getServices() {
+		return services;
+	}
+	public void setServices(List<Service> services) {
+		this.services = services;
+	}
 	@Override
 	public String toString() {
-		return "Branch [branchId=" + branchId + ", providerId=" + providerId + ", managerId=" + managerId + ", telephone=" + telephone + ", address=" + address + ", brachEmail=" + brachEmail + ", brachType=" + brachType + ", branchState=" + branchState + "]";
+		return "Branch [branchId=" + branchId + ", providerId=" + providerId + ", managerId=" + managerId + ", telephone=" + telephone + ", address=" + address + ", branchState=" + branchState + ", services=" + services + "]";
 	}
 
-	
 }

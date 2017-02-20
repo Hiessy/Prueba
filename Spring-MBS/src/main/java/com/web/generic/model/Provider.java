@@ -1,6 +1,8 @@
 package com.web.generic.model;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 import com.web.generic.model.enums.ProviderState;
 
@@ -8,16 +10,12 @@ public class Provider {
 
 	private Integer providerId; //Id_Proveedor
 	private Date subsriptionDate; // Fecha_Alta
-	private Date unsubscriptionDate; // Fecha_Baja TODO change to modified
-	// TODO id_Usuario
-	private String firstName; // Nombre_Encargada
-	private String lastName; // Apellido_Encargada
-	private String service; // TODO averiguar que es esto: Razon social
-	private Integer numberOfBranches; // Cantidad_Sucursales
+	private String providerName; // Nombre_Encargada
 	private String providerEmail; // email TODO revisar si esto es necesario
-	private ProviderState providerState; // Estado_Proveedor {Ok - Bloqueado - baja}
+	private String providerPassword; // Apellido_Encargada
+	private List<Branch> branches; // Cantidad_Sucursales
 	private String category; // Rubro
-	private String subCategory; // subRubro
+	private ProviderState providerState; // Estado_Proveedor {Ok - Bloqueado - baja}
 	private String hmoProvider; // Obra social
 
 	public Integer getProviderId() {
@@ -36,44 +34,20 @@ public class Provider {
 		this.subsriptionDate = subsriptionDate;
 	}
 
-	public Date getUnsubscriptionDate() {
-		return unsubscriptionDate;
+	public String getProviderPassword() {
+		return providerPassword;
 	}
 
-	public void setUnsubscriptionDate(Date unsubscriptionDate) {
-		this.unsubscriptionDate = unsubscriptionDate;
+	public void setProviderPassword(String providerPassword) {
+		this.providerPassword = providerPassword;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public List<Branch> getBranches() {
+		return branches;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getService() {
-		return service;
-	}
-
-	public void setService(String service) {
-		this.service = service;
-	}
-
-	public Integer getNumberOfBranches() {
-		return numberOfBranches;
-	}
-
-	public void setNumberOfBranches(Integer numberOfBranches) {
-		this.numberOfBranches = numberOfBranches;
+	public void setBranches(List<Branch> branches) {
+		this.branches = branches;
 	}
 
 	public String getProviderEmail() {
@@ -100,14 +74,6 @@ public class Provider {
 		this.category = category;
 	}
 
-	public String getSubCategory() {
-		return subCategory;
-	}
-
-	public void setSubCategory(String subCategory) {
-		this.subCategory = subCategory;
-	}
-
 	public String getHmoProvider() {
 		return hmoProvider;
 	}
@@ -116,10 +82,18 @@ public class Provider {
 		this.hmoProvider = hmoProvider;
 	}
 
+	public String getProviderName() {
+		return providerName;
+	}
+
+	public void setProviderName(String providerName) {
+		this.providerName = providerName;
+	}
+
 	@Override
 	public String toString() {
-		return "Provider [providerId=" + providerId + ", subsriptionDate=" + subsriptionDate + ", unsubscriptionDate=" + unsubscriptionDate + ", firstName=" + firstName + ", lastName=" + lastName + ", service=" + service + ", numberOfBranches=" + numberOfBranches
-				+ ", providerEmail=" + providerEmail + ", providerState=" + providerState + ", category=" + category + ", subCategory=" + subCategory + ", hmoProvider=" + hmoProvider + "]";
+		return "Provider [providerId=" + providerId + ", subsriptionDate=" + subsriptionDate + ", providerName=" + providerName + ", providerEmail=" + providerEmail + ", providerPassword=" + providerPassword + ", branches=" + branches + ", category=" + category
+				+ ", providerState=" + providerState + ", hmoProvider=" + hmoProvider + "]";
 	}
 
 }

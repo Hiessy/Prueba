@@ -1,5 +1,7 @@
 package com.web.generic.model;
 
+import java.util.List;
+
 import com.web.generic.model.enums.ServiceState;
 
 public class Service {
@@ -8,12 +10,12 @@ public class Service {
 	private Integer branchId;// Id_Sucursal Numerico ID
 	private Integer scheduleId;// Id_Agenda Numerico ID
 	private String serviceName;// Nombre_Servicio Texto
-	private String serviceProviderName;// Nombre_Profecional Texto
 	private ServiceState serviceState;// Estado_Servicio
 										// "Numerico//	1-OK//	2-Baja"
-	private Integer totalQuota;// Cantidad_Cupo Numerico
 	private String subCategory;// SubRubro Texto (Nombre de subrubro del
 								// servicio)
+	private List<Personal> personal;
+	private int duration;
 
 	public Integer getServiceId() {
 		return serviceId;
@@ -47,28 +49,12 @@ public class Service {
 		this.serviceName = serviceName;
 	}
 
-	public String getServiceProviderName() {
-		return serviceProviderName;
-	}
-
-	public void setServiceProviderName(String serviceProviderName) {
-		this.serviceProviderName = serviceProviderName;
-	}
-
 	public ServiceState getServiceState() {
 		return serviceState;
 	}
 
 	public void setServiceState(ServiceState serviceState) {
 		this.serviceState = serviceState;
-	}
-
-	public Integer getTotalQuota() {
-		return totalQuota;
-	}
-
-	public void setTotalQuota(Integer totalQuota) {
-		this.totalQuota = totalQuota;
 	}
 
 	public String getSubCategory() {
@@ -79,10 +65,25 @@ public class Service {
 		this.subCategory = subCategory;
 	}
 
-	@Override
-	public String toString() {
-		return "Service [serviceId=" + serviceId + ", branchId=" + branchId + ", scheduleId=" + scheduleId + ", serviceName=" + serviceName + ", serviceProviderName=" + serviceProviderName + ", serviceState=" + serviceState + ", totalQuota=" + totalQuota + ", subCategory="
-				+ subCategory + "]";
+	public List<Personal> getPersonal() {
+		return personal;
 	}
 
+	public void setPersonal(List<Personal> personal) {
+		this.personal = personal;
+	}
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
+	@Override
+	public String toString() {
+		return "Service [serviceId=" + serviceId + ", branchId=" + branchId + ", scheduleId=" + scheduleId + ", serviceName=" + serviceName + ", serviceState=" + serviceState + ", subCategory=" + subCategory + ", personal=" + personal + ", duration=" + duration + "]";
+	}
+	
 }
