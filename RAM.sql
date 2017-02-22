@@ -87,6 +87,7 @@ FOREIGN KEY (service_id) REFERENCES services(service_id));
 CREATE TABLE customers (
 customer_id INT NOT NULL AUTO_INCREMENT,
 address_id INT(10) NOT NULL,
+customer_name varchar(255) NOT NULL,
 email varchar(255) NOT NULL UNIQUE,
 password varchar(255),
 PRIMARY KEY (customer_id),
@@ -95,6 +96,7 @@ FOREIGN KEY (address_id) REFERENCES addresses(address_id));
 CREATE TABLE personal (
 personal_id INT NOT NULL AUTO_INCREMENT,
 provider_id INT(10) NOT NULL,
+personal_name varchar(255) NOT NULL,
 email varchar(255) NOT NULL UNIQUE,
 password varchar(255),
 PRIMARY KEY (personal_id),
