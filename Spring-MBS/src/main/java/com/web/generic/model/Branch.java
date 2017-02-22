@@ -8,7 +8,6 @@ public class Branch {
 
 	private int branchId;// Id_Sucursal
 	private int providerId;// Id_Proveedor
-	private int managerId;// Responsable_Sucursal
 	private int telephone;// Telefono
 	private Address address;
 	private ProviderState branchState;// Estado_Sucursal
@@ -25,12 +24,7 @@ public class Branch {
 	public void setProviderId(int providerId) {
 		this.providerId = providerId;
 	}
-	public int getManagerId() {
-		return managerId;
-	}
-	public void setManagerId(int managerId) {
-		this.managerId = managerId;
-	}
+
 	public int getTelephone() {
 		return telephone;
 	}
@@ -57,7 +51,7 @@ public class Branch {
 	}
 	@Override
 	public String toString() {
-		return "Branch [branchId=" + branchId + ", providerId=" + providerId + ", managerId=" + managerId + ", telephone=" + telephone + ", address=" + address + ", branchState=" + branchState + ", services=" + services + "]";
+		return "Branch [branchId=" + branchId + ", providerId=" + providerId  + ", telephone=" + telephone + ", address=" + address + ", branchState=" + branchState + ", services=" + services + "]";
 	}
 
 }

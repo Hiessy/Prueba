@@ -1,6 +1,5 @@
 package com.web.generic.model;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -9,7 +8,7 @@ import com.web.generic.model.enums.ProviderState;
 public class Provider {
 
 	private Integer providerId; //Id_Proveedor
-	private Date subsriptionDate; // Fecha_Alta
+	private Date latestUpdate; // Fecha_Alta
 	private String providerName; // Nombre_Encargada
 	private String providerEmail; // email TODO revisar si esto es necesario
 	private String providerPassword; // Apellido_Encargada
@@ -26,12 +25,12 @@ public class Provider {
 		this.providerId = providerId;
 	}
 
-	public Date getSubsriptionDate() {
-		return subsriptionDate;
+	public Date getLatesUpdate() {
+		return latestUpdate;
 	}
 
-	public void setSubsriptionDate(Date subsriptionDate) {
-		this.subsriptionDate = subsriptionDate;
+	public void setLatesUpdate(Date latestUpdate) {
+		this.latestUpdate = latestUpdate;
 	}
 
 	public String getProviderPassword() {
@@ -92,7 +91,7 @@ public class Provider {
 
 	@Override
 	public String toString() {
-		return "Provider [providerId=" + providerId + ", subsriptionDate=" + subsriptionDate + ", providerName=" + providerName + ", providerEmail=" + providerEmail + ", providerPassword=" + providerPassword + ", branches=" + branches + ", category=" + category
+		return "Provider [providerId=" + providerId + ", latestUpdate=" + latestUpdate + ", providerName=" + providerName + ", providerEmail=" + providerEmail + ", providerPassword=" + providerPassword + ", branches=" + branches + ", category=" + category
 				+ ", providerState=" + providerState + ", hmoProvider=" + hmoProvider + "]";
 	}
 

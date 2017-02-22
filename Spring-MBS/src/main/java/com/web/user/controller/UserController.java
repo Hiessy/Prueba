@@ -144,7 +144,7 @@ public class UserController {
 		return user;
 	}
 
-	private Access checkUserAuthorization(String email, String pass) {
+	private Access checkUserAuthorization(String email, String pass) throws RuntimeException{
 
 		Access access = new Access();
 
@@ -153,6 +153,7 @@ public class UserController {
 			access.setAccepted(true);
 		} else {
 			access.setAccepted(false);
+			throw new RuntimeException("Error trying to validate, wrong user/pass");
 		}
 
 		return access;

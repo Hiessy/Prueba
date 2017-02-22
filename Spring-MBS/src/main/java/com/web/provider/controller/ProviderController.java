@@ -62,7 +62,7 @@ public class ProviderController {
 		validateEmail(provider.getProviderEmail(), provider.getProviderPassword());
 
 		provider.setProviderId(1001);
-		provider.setSubsriptionDate(new Date());
+		provider.setLatesUpdate(new Date());
 		provider.setProviderState(ProviderState.ACTIVE);
 
 		for(Branch branch: provider.getBranches())

@@ -27,7 +27,7 @@ public class GoogleConnector {
 	public static GoogleResponse getGoogleResponse(String addressNumber, String streetName, String cityName, String provinceName, String countryName) {
 
 		ObjectMapper mapper = new ObjectMapper();
-		String requestURL = createGoogleRequest(addressNumber, streetName, cityName, provinceName, countryName).replaceAll(" ", "%20") + "&key=AIzaSyB22AQq9IU9S9r-Jo-1wdtUmxkz_C7PG0o";
+		String requestURL = createGoogleRequest(addressNumber, streetName, cityName, provinceName, countryName).replaceAll(" ", "%20");
 		System.out.println(requestURL);
 		GoogleResponse serverResponse = null;
 
