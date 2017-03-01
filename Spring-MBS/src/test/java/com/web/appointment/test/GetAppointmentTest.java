@@ -7,58 +7,85 @@
  */
 package com.web.appointment.test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.neo4j.cypher.internal.compiler.v2_1.planner.logical.steps.sortSkipAndLimit;
 
-import com.web.appointment.service.AppointmenHandler;
-import com.web.appointment.model.Appointment;
-import com.web.appointment.model.Branch;
-import com.web.appointment.model.Slot;
-import com.web.appointment.model.SlotState;
+import com.web.appointment.test.service.AppointmentHandler;
+import com.web.appointment.test.model.alternative.Appointment;
+import com.web.appointment.test.model.alternative.Branch;
+import com.web.appointment.test.model.alternative.Slot;
 
 public class GetAppointmentTest {
 
-    List<Appointment> takenSlots = new ArrayList<Appointment>();
-    List<Appointment> expectedFreeSlots = new ArrayList<Appointment>();
-    Slot workHours = new Slot(1, "Dr Dentista", 14, 00, 20, 0, 15);
+	static List<Appointment> takenSlots = new ArrayList<Appointment>();
+	static List<Appointment> expectedFreeSlots = new ArrayList<Appointment>();
+	static String hours = "1400:2000";
+	static int duration = 3;
 
-    @Before
-    public void setUp() throws Exception {
+	static Slot workHours = new Slot(1, "Service Name", "1400:2000", 3);
 
-	takenSlots.add(new Appointment(1, "Dr Dentista", "Martin", SlotState.CONFIRM, 1, 1, 2016, 14, 30, 15, 0));
-	takenSlots.add(new Appointment(1, "Dr Dentista", "Andres", 1, 1, 2016, 17, 45, 18, 0));
-	takenSlots.add(new Appointment(1, "Dr Dentista", "Jaun", 1, 1, 2016, 15, 0, 15, 45));
-	takenSlots.add(new Appointment(1, "Dr Dentista", "Valeria", 1, 1, 2016, 16, 30, 17, 0));
-	takenSlots.add(new Appointment(1, "Dr Dentista", "Marcela", 1, 1, 2016, 18, 30, 19, 30));
+	public static void main(String[] args) {
 
-	expectedFreeSlots.add(new Appointment(1, "Dr Dentista", 1, 1, 2016, 14, 00, 14, 15));
-	expectedFreeSlots.add(new Appointment(1, "Dr Dentista", 1, 1, 2016, 14, 15, 14, 30));
-	expectedFreeSlots.add(new Appointment(1, "Dr Dentista", 1, 1, 2016, 15, 45, 16, 00));
-	expectedFreeSlots.add(new Appointment(1, "Dr Dentista", 1, 1, 2016, 16, 00, 16, 15));
-	expectedFreeSlots.add(new Appointment(1, "Dr Dentista", 1, 1, 2016, 16, 15, 16, 30));
-	expectedFreeSlots.add(new Appointment(1, "Dr Dentista", 1, 1, 2016, 17, 00, 17, 15));
-	expectedFreeSlots.add(new Appointment(1, "Dr Dentista", 1, 1, 2016, 17, 15, 17, 30));
-	expectedFreeSlots.add(new Appointment(1, "Dr Dentista", 1, 1, 2016, 17, 30, 17, 45));
-	expectedFreeSlots.add(new Appointment(1, "Dr Dentista", 1, 1, 2016, 18, 00, 18, 15));
-	expectedFreeSlots.add(new Appointment(1, "Dr Dentista", 1, 1, 2016, 18, 15, 18, 30));
-	expectedFreeSlots.add(new Appointment(1, "Dr Dentista", 1, 1, 2016, 19, 30, 19, 45));
-	expectedFreeSlots.add(new Appointment(1, "Dr Dentista", 1, 1, 2016, 19, 45, 20, 00));
+	       String date = new StringBuilder(LocalDate.now().toString().replace("-", "/")).reverse().toString();
+	       System.out.println(date);
 
-    }
+		
+		takenSlots.add(new Appointment(1, 1, "2017/03/01", "1645:1700", "CONFIRMED"));
+		takenSlots.add(new Appointment(1, 1, "2017/03/01", "1915:1930", "CONFIRMED"));
+		takenSlots.add(new Appointment(1, 1, "2017/03/01", "1400:1415", "CONFIRMED"));
+		takenSlots.add(new Appointment(1, 1, "2017/03/01", "1530:1545", "CONFIRMED"));
 
-    @Test
-    public void testGetFreeSlotsSuccess() {
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1415:1430", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1430:1445", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1445:1500", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1500:1515", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1515:1530", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1545:1600", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1600:1615", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1615:1630", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1630:1645", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1700:1715", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1715:1730", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1730:1745", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1745:1800", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1800:1815", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1815:1830", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1830:1845", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1845:1900", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1900:1915", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1930:1945", "OPEN"));
+		expectedFreeSlots.add(new Appointment(1, "2017/03/01", "1945:2000", "OPEN"));
 
-	AppointmenHandler appointmentHandler = new AppointmenHandler(workHours);
-	Branch freeSlots = appointmentHandler.getFreeAppointments(takenSlots);
+		int start = Integer.valueOf(hours.substring(0, 4));
+		int end = Integer.valueOf(hours.substring(5, 9));
+		int providerId = 1;
 
-	Assert.assertEquals(expectedFreeSlots, freeSlots.getBranchAppointments().get(SlotState.OPEN));
-	Assert.assertEquals(takenSlots.size(), 0);
+		AppointmentHandler appointmentHandler = new AppointmentHandler(providerId, date, start, end, duration * 5);
+		
+		takenSlots.sort(Comparator.comparing(Appointment::getAppointmentHour));
+		takenSlots.sort((o1, o2) -> o1.getAppointmentHour().compareTo(o2.getAppointmentHour()));
+		
+		for (Appointment tk : takenSlots) {
+			System.out.println(tk);
+		}
+		
+		List<Appointment> freeSlots = appointmentHandler.getFreeAppointments(takenSlots);
+		
+		
+		for (Appointment tk : freeSlots) {
+			System.out.println(tk);
+		}
+		System.out.println(freeSlots.equals(expectedFreeSlots));
 
-    }
+	}
 
 }

@@ -1,98 +1,103 @@
 package com.web.appointment.test.model.alternative;
 
-import java.util.Date;
-import java.util.List;
-
-import com.web.generic.model.enums.ProviderState;
-
 public class Provider {
-
-	private Integer providerId; //Id_Proveedor
-	private Date latestUpdate; // Fecha_Alta
-	private String providerName; // Nombre_Encargada
-	private String providerEmail; // email TODO revisar si esto es necesario
-	private String providerPassword; // Apellido_Encargada
-	private List<Branch> branches; // Cantidad_Sucursales
-	private String category; // Rubro
-	private ProviderState providerState; // Estado_Proveedor {Ok - Bloqueado - baja}
-	private String hmoProvider; // Obra social
-
+	
+	private Integer providerId;
+	private Integer serviceId;
+	private String monday;
+	private String tuesday;
+	private String wednesday; 
+	private String thursday;
+	private String friday; 
+	private String saturday;
+	private String sunday;	
+	
+	public Provider() {
+		super();
+	}
+	
+	public Provider(Integer providerId, Integer serviceId, String monday, String tuesday, String wednesday, String thursday, String friday, String saturday, String sunday) {
+		super();
+		this.providerId = providerId;
+		this.serviceId = serviceId;
+		this.monday = monday;
+		this.tuesday = tuesday;
+		this.wednesday = wednesday;
+		this.thursday = thursday;
+		this.friday = friday;
+		this.saturday = saturday;
+		this.sunday = sunday;
+	}
+	
+	public Provider(Integer providerId, String sunday, String monday, String tuesday, String wednesday, String thursday, String friday, String saturday) {
+		super();
+		this.providerId = providerId;
+		this.monday = monday;
+		this.tuesday = tuesday;
+		this.wednesday = wednesday;
+		this.thursday = thursday;
+		this.friday = friday;
+		this.saturday = saturday;
+		this.sunday = sunday;
+	}
+		
 	public Integer getProviderId() {
 		return providerId;
 	}
-
 	public void setProviderId(Integer providerId) {
 		this.providerId = providerId;
 	}
-
-	public Date getLatesUpdate() {
-		return latestUpdate;
+	public Integer getServiceId() {
+		return serviceId;
 	}
-
-	public void setLatesUpdate(Date latestUpdate) {
-		this.latestUpdate = latestUpdate;
+	public void setServiceId(Integer serviceId) {
+		this.serviceId = serviceId;
 	}
-
-	public String getProviderPassword() {
-		return providerPassword;
+	public String getMonday() {
+		return monday;
 	}
-
-	public void setProviderPassword(String providerPassword) {
-		this.providerPassword = providerPassword;
+	public void setMonday(String monday) {
+		this.monday = monday;
 	}
-
-	public List<Branch> getBranches() {
-		return branches;
+	public String getTuesday() {
+		return tuesday;
 	}
-
-	public void setBranches(List<Branch> branches) {
-		this.branches = branches;
+	public void setTuesday(String tuesday) {
+		this.tuesday = tuesday;
 	}
-
-	public String getProviderEmail() {
-		return providerEmail;
+	public String getWednesday() {
+		return wednesday;
 	}
-
-	public void setProviderEmail(String providerEmail) {
-		this.providerEmail = providerEmail;
+	public void setWednesday(String wednesday) {
+		this.wednesday = wednesday;
 	}
-
-	public ProviderState getProviderState() {
-		return providerState;
+	public String getThursday() {
+		return thursday;
 	}
-
-	public void setProviderState(ProviderState providerState) {
-		this.providerState = providerState;
+	public void setThursday(String thursday) {
+		this.thursday = thursday;
 	}
-
-	public String getCategory() {
-		return category;
+	public String getFriday() {
+		return friday;
 	}
-
-	public void setCategory(String category) {
-		this.category = category;
+	public void setFriday(String friday) {
+		this.friday = friday;
 	}
-
-	public String getHmoProvider() {
-		return hmoProvider;
+	public String getSaturday() {
+		return saturday;
 	}
-
-	public void setHmoProvider(String hmoProvider) {
-		this.hmoProvider = hmoProvider;
+	public void setSaturday(String saturday) {
+		this.saturday = saturday;
 	}
-
-	public String getProviderName() {
-		return providerName;
+	public String getSunday() {
+		return sunday;
 	}
-
-	public void setProviderName(String providerName) {
-		this.providerName = providerName;
+	public void setSunday(String sunday) {
+		this.sunday = sunday;
 	}
-
 	@Override
 	public String toString() {
-		return "Provider [providerId=" + providerId + ", latestUpdate=" + latestUpdate + ", providerName=" + providerName + ", providerEmail=" + providerEmail + ", providerPassword=" + providerPassword + ", branches=" + branches + ", category=" + category
-				+ ", providerState=" + providerState + ", hmoProvider=" + hmoProvider + "]";
+		return "Provider [providerId=" + providerId + ", serviceId=" + serviceId + ", monday=" + monday + ", tuesday=" + tuesday + ", wednesday=" + wednesday + ", thursday=" + thursday + ", friday=" + friday + ", saturday=" + saturday + ", sunday=" + sunday + "]";
 	}
-
+	
 }
