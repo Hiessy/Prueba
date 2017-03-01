@@ -1,13 +1,21 @@
 package com.example.json;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.node.ObjectNode;
 import org.codehaus.jackson.type.TypeReference;
 
 import com.example.json.model.Access;
+import com.example.json.model.Address;
 import com.example.json.model.User;
 import com.example.json.model.response.ServerResponse;
 
@@ -39,6 +47,8 @@ public class Main {
 		// respuesta de la consulta del tipo POST.
 		ServerResponse<Access> serverResponsePost = hacerPost();
 
+		ServerResponse<User> serverResponsePostwithBody = hacerPostConBody();
+		
 		System.out.println("***************************************************************************");
 		System.out.println("*****************************Resultado del GET*****************************");
 		System.out.println("***************************************************************************");
@@ -54,6 +64,14 @@ public class Main {
 		System.out.println(serverResponsePost.getMetaData());
 		System.out.println(serverResponsePost.getData());
 		System.out.println(serverResponsePost.getData().getToken());
+		
+		System.out.println("****************************************************************************");
+		System.out.println("************************Resultado del POST con Body*************************");
+		System.out.println("****************************************************************************");
+
+		System.out.println(serverResponsePostwithBody.getMetaData());
+		System.out.println(serverResponsePostwithBody.getData());
+		System.out.println(serverResponsePostwithBody.getData().getContraseña());
 	}
 
 	public static ServerResponse<Access> hacerPost() {
@@ -99,7 +117,61 @@ public class Main {
 
 		return serverResponse;
 	}
+	public static ServerResponse<User> hacerPostConBody() {
 
+		ObjectMapper mapper = new ObjectMapper();
+		ServerResponse<User> serverResponse = null;
+
+		try {
+			URL url = new URL("http://localhost:8080/register");
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			
+			//Configura el header para que sea Contet-Type; Application/json
+			connection.setRequestProperty("Content-Type", "application/json");
+			//Configuro el listener para que espere una respuesta
+			connection.setDoOutput(true);
+			connection.connect(); 
+			
+			//Creo que objeto que voy a convertir en el body, para mayor facilidad lo isntancio y lo convierto en string
+			User user = new User();
+			
+			user.setNombre("Martin");
+			user.setApellido("Diaz");
+			user.setDni("27093141");
+			user.setFechDeNacimiento("06/03/1979");
+			user.setMail("martin@mail.com");
+			user.setContraseña("password");
+			user.setSexo("M");
+			user.setTelefono("44315780");
+			List<Address> address = new ArrayList<Address>();
+			address.add(new Address("AR","Capital Federal", "Caballito", "Av. Rivadavia 5900"));
+			
+			user.setAddress(address);
+			//Utilizando la libreria de jackson lo convierto en ObjectNode para que me arme la estructura del Json,
+			// el objeto node lo voy a usar como string
+	        ObjectNode node = mapper.valueToTree(user);
+	        
+	        //Obtengo el lector de stream de la conexion
+			OutputStream os = connection.getOutputStream();			
+			OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+			//escribo mi objeto json al servidor
+			osw.write(node.toString());
+			//libero memoria
+			osw.flush();
+			osw.close();			
+		
+			//continua normalment
+			InputStream is = connection.getInputStream();
+			serverResponse = mapper.readValue(is, new TypeReference<ServerResponse<User>>() {});
+			is.close();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return serverResponse;
+	}
 	public static ServerResponse<User> hacerGet() {
 
 		// Declaro un Objeto Mapper para se encarga de tomar el InputStream e

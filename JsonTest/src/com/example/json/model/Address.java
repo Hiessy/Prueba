@@ -7,6 +7,18 @@ public class Address {
 	String barrio;
 	String direccion;
 
+	public Address(){
+		
+	}
+
+	public Address(String pais, String provincia, String barrio, String direccion) {
+		super();
+		this.pais = pais;
+		this.provincia = provincia;
+		this.barrio = barrio;
+		this.direccion = direccion;
+	}
+
 	public String getPais() {
 		return pais;
 	}
