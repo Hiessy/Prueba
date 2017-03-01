@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.web.application.model.response.MetaData;
 import com.web.application.model.response.ServerResponse;
-import com.web.appointment.test.model.alternative.Address;
-import com.web.appointment.test.model.alternative.Branch;
-import com.web.appointment.test.model.alternative.Provider;
+import com.web.generic.model.Address;
+import com.web.generic.model.Branch;
+import com.web.generic.model.Provider;
 import com.web.generic.model.enums.ProviderState;
 import com.web.generic.service.Validator;
 

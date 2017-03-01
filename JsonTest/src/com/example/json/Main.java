@@ -154,12 +154,12 @@ public class Main {
 	        
 	        //Obtengo el lector de stream de la conexion
 			OutputStream os = connection.getOutputStream();			
-			OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+			OutputStreamWriter outputStreamWriter = new OutputStreamWriter(os, "UTF-8");
 			//escribo mi objeto json al servidor
-			osw.write(node.toString());
+			outputStreamWriter.write(node.toString());
 			//libero memoria
-			osw.flush();
-			osw.close();			
+			outputStreamWriter.flush();
+			outputStreamWriter.close();			
 		
 			//continua normalment
 			InputStream is = connection.getInputStream();
