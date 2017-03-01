@@ -22,7 +22,8 @@ INSERT INTO addresses(street,street_nbr,floor,postalCode,district,city,province,
 ('Estomba', '3924',null,'C1430',null,  'Ciudad Autonoma de Buenos Aires','Buenos Aires', 'AR','-34.553993:-58.484161'),
 ('Lavalle', '1514',null,'C1048',null,  'Ciudad Autonoma de Buenos Aires','Buenos Aires', 'AR','-34.60291:-58.38842'),
 ('Córdoba', '3845',null,'S2002LAG',null,   'Rosario', 'Santa Fe', 'AR','-32.93961:-60.675089'),
-('Av. 19', '135',null,'B1902',null, 'La Plata', 'Buenos Aires', 'AR','-34.91416:-57.978332');
+('Av. 19', '135',null,'B1902',null, 'La Plata', 'Buenos Aires', 'AR','-34.91416:-57.978332'),
+('Rosario', '68',null,'C1424',null, 'Ciudad Autonoma de Buenos Aires', 'Buenos Aires', 'AR','-34.6184392:-58.4295427');
 
 INSERT INTO branches(business_id, address_id, telephone, branch_state) VALUES
 (1,5,'(03537) 41 - 5777','ACTIVE'),
@@ -99,10 +100,9 @@ INSERT INTO providers (service_id, sunday, monday, tuesday, wednesday, thursday,
 (14,"0000:0000","0900:1800","0900:1800","0900:1800","0900:1800","0900:1800","0000:0000","ACTIVE"),
 (14,"0000:0000","0900:1800","0900:1800","0900:1800","0900:1800","0900:1800","0000:0000","ACTIVE");
 
+INSERT INTO customers (address_id, customer_name, email, password) VALUES
+(7,"Agustin Larrarte","alarrarte@mail.com","1234abcd");
 /*
-INSERT INTO customers (address_id, email, password,
-PRIMARY KEY (customer_id),
-FOREIGN KEY (address_id) REFERENCES addresses(address_id));
 
 agrregar address
 */

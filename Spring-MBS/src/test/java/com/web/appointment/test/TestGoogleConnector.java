@@ -20,19 +20,19 @@ public class TestGoogleConnector {
 		System.out.println(new Date());
 
 		List<String[]> addresses = new ArrayList<String[]>();
-		String[] addr1 = { "6800", "Av. Rivadavia", "Ciudad Autonoma de Buenos Aires", "Buenos Aires", "AR" };
-		String[] addr2 = { "3506", "Av. Corrientes", "Ciudad Autonoma de Buenos Aires", "Buenos Aires", "AR" };
-		String[] addr3 = { "3924", "Estomba", "Ciudad Autonoma de Buenos Aires", "Buenos Aires", "AR" };
-		String[] addr4 = { "1514", "Lavalle", "Ciudad Autonoma de Buenos Aires", "Buenos Aires", "AR" };
-		String[] addr5 = { "3845", "Córdoba", "Rosario", "Santa Fe", "AR" };
-		String[] addr6 = { "135", "Av. 19", "La Plata", "Buenos Aires", "AR" };				
+		String[] addr1 = { "68", "Rosario", "Ciudad Autonoma de Buenos Aires", "Buenos Aires", "AR" };
+//		String[] addr2 = { "3506", "Av. Corrientes", "Ciudad Autonoma de Buenos Aires", "Buenos Aires", "AR" };
+//		String[] addr3 = { "3924", "Estomba", "Ciudad Autonoma de Buenos Aires", "Buenos Aires", "AR" };
+//		String[] addr4 = { "1514", "Lavalle", "Ciudad Autonoma de Buenos Aires", "Buenos Aires", "AR" };
+//		String[] addr5 = { "3845", "Córdoba", "Rosario", "Santa Fe", "AR" };
+//		String[] addr6 = { "135", "Av. 19", "La Plata", "Buenos Aires", "AR" };				
 		
 		addresses.add(addr1);
-		addresses.add(addr2);
-		addresses.add(addr3);
-		addresses.add(addr4);
-		addresses.add(addr5);
-		addresses.add(addr6);
+//		addresses.add(addr2);
+//		addresses.add(addr3);
+//		addresses.add(addr4);
+//		addresses.add(addr5);
+//		addresses.add(addr6);
 		
 		for (String[] address : addresses) {
 			Result result = GoogleConnector.getGoogleResponse(address[0], address[1], address[2], address[3], address[4]).getResults().get(0);

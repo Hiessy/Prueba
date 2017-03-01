@@ -28,12 +28,12 @@ import com.web.appointment.service.AppointmenHandler;
 public class AppointmentController {
 
 	private int id = 1;
-	private String subCategory = "Dentist";
-	private int beginHour = 14;
-	private int beginMinute = 00;
-	private int endHour = 20;
-	private int endMinute = 00;
-	private int appointmentDuration = 5;
+	private String subCategory = "Dentist"; //del servicio
+	private int beginHour = 14; //del provedor
+	private int beginMinute = 00; //del provedor
+	private int endHour = 20; //del provedor
+	private int endMinute = 00; //del provedor
+	private int appointmentDuration = 5; //viene del servicio	
 	private List<DailySchedule> workingDaysSchedule;
 
 	private static Logger LOGGER = LoggerFactory.getLogger(AppointmentController.class);

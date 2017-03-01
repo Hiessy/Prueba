@@ -1,4 +1,4 @@
-package com.web.generic.model;
+package com.web.appointment.test.model.alternative;
 
 import java.util.Date;
 

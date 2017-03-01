@@ -45,7 +45,7 @@ district varchar(30),
 city varchar(50),
 province varchar(50),
 country varchar(2),
-coordenates varchar(36),
+coordenates varchar(50),
 PRIMARY KEY (address_id));
 
 CREATE TABLE branches (

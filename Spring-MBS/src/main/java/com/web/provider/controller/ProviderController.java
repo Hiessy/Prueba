@@ -1,7 +1,6 @@
 package com.web.provider.controller;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -13,13 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import scala.annotation.meta.getter;
-
 import com.web.application.model.response.MetaData;
 import com.web.application.model.response.ServerResponse;
-import com.web.generic.model.Address;
-import com.web.generic.model.Branch;
-import com.web.generic.model.Provider;
+import com.web.appointment.test.model.alternative.Address;
+import com.web.appointment.test.model.alternative.Branch;
+import com.web.appointment.test.model.alternative.Provider;
 import com.web.generic.model.enums.ProviderState;
 import com.web.generic.service.Validator;
 
@@ -67,16 +64,7 @@ public class ProviderController {
 
 		for(Branch branch: provider.getBranches())
 			branch.getAddress().setCoordenates(getCoordinates(branch.getAddress()));
-		// "coordenates": null
-		// "branchState": null,
-		//
-		// "serviceId": null,
-		// "branchId": null,
-		// "scheduleId": null,
-		// "serviceState": null,
-		//
-		// "providerState": null,
-		// "hmoProvider": null
+
 		return provider;
 	}
 
