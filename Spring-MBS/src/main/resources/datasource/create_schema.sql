@@ -107,12 +107,11 @@ password varchar(255),
 PRIMARY KEY (personal_id),
 FOREIGN KEY (provider_id) REFERENCES providers(provider_id));
 
-CREATE TABLE appointment (
+CREATE TABLE appointments (
 appointment_id INT NOT NULL AUTO_INCREMENT,
 provider_id INT NOT NULL,
 customer_id INT NOT NULL,
-appointment_date varchar(6) NOT NULL,
-appointment_hour varchar(9) NOT NULL,
+appointment_time TEXT(10) NOT NULL,
 appointment_state varchar(25),
 PRIMARY KEY (appointment_id),
 FOREIGN KEY (provider_id) REFERENCES providers(provider_id),

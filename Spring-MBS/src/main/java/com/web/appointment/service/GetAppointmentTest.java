@@ -5,7 +5,7 @@
  * @author Tincho
  *
  */
-package com.web.appointment.test;
+package com.web.appointment.service;
 
 import java.lang.reflect.Method;
 import java.time.LocalDate;
@@ -302,5 +302,38 @@ public class GetAppointmentTest {
 		takenSlots.add("1703160915");
 
 		return takenSlots;
+	}
+
+	private static HashMap<String, List<Appointment>> getExpectedResults() {
+
+		HashMap<String, List<Appointment>> expectedResult = new HashMap<String, List<Appointment>>();
+
+		// expectedFreeSlots.add(new Appointment(1, "1703011415", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011430", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011445", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011500", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011515", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011545", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011600", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011615", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011630", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011700", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011715", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011730", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011745", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011800", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011815", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011830", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011845", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011900", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011930", "OPEN"));
+		// expectedFreeSlots.add(new Appointment(1, "1703011945", "OPEN"));
+
+		return expectedResult;
+
+	}
+
+	private static String capitalize(final String line) {
+		return Character.toUpperCase(line.charAt(0)) + line.substring(1);
 	}
 }

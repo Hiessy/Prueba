@@ -1,4 +1,4 @@
-package com.web.appointment.test.model.alternative;
+package com.web.appointment.model;
 
 public class Provider {
 	

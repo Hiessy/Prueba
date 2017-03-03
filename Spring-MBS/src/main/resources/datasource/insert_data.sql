@@ -102,3 +102,10 @@ INSERT INTO providers (service_id, sunday, monday, tuesday, wednesday, thursday,
 
 INSERT INTO customers (address_id, customer_name, email, password) VALUES
 (7,'Agustin Larrarte','alarrarte@mail.com','1234abcd');
+
+/*
+ *  appointment_time is stored as an unsigned int /YYMMDDHHMM
+ *  for example: 1703021600 would be 16:00 02/02/2017
+ */
+INSERT INTO appointments (provider_id, customer_id, appointment_time, appointment_state)
+VALUES (1,1,'1703021600', 'CONFIRMEND'),(1,1,'1703030900', 'CONFIRMEND'),(1,1,'1703041600', 'CONFIRMEND'),(1,1,'1703060900', 'CONFIRMEND');

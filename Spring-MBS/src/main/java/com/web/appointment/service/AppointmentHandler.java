@@ -1,10 +1,9 @@
-package com.web.appointment.test.service;
+package com.web.appointment.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.web.appointment.test.model.alternative.Appointment;
-import com.web.appointment.test.model.alternative.Slot;
+import com.web.appointment.model.Appointment;
 
 public class AppointmentHandler {
 

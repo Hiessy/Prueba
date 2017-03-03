@@ -1,145 +1,107 @@
 package com.web.appointment.model;
 
+
+
 public class Appointment {
 
-	private Integer id;
-	private String specialist;
-	private String user;
-	private SlotState slotState;	
-	private int day;
-	private int month;
-	private int year;	
-	private int startTimeHour;
-	private int startTimeMinute;
-	private int endTimeHour;
-	private int endTimeMinute;
+	private Integer appointmentId;// Id_Turno
+	private Integer providerId;// Id_Proveedor
+	private Integer customerId;// Id_Sucursal
+	private String appointmentTime;// Fecha_ResTurno
+	private String appointmentState;	
 	
-	public Appointment(Integer id, String specialist, String user, int day, int month, int year, int startTimeHour, int startTimeMinute, int endTimeHour, int endTimeMinute) {
+	public Appointment() {
 		super();
-		this.id = id;
-		this.specialist = specialist;
-		this.user = user;
-		this.slotState = SlotState.SELECTED;
-		this.day = day;
-		this.month = month;
-		this.year = year;
-		this.startTimeHour = startTimeHour;
-		this.startTimeMinute = startTimeMinute;
-		this.endTimeHour = endTimeHour;
-		this.endTimeMinute = endTimeMinute;
-	}
-	public Appointment(Integer id, String specialist, int day, int month, int year, int startTimeHour, int startTimeMinute, int endTimeHour, int endTimeMinute) {
-		super();
-		this.id = id;
-		this.day = day;
-		this.month = month;
-		this.year = year;
-		this.specialist = specialist;
-		this.slotState = SlotState.OPEN;
-		this.startTimeHour = startTimeHour;
-		this.startTimeMinute = startTimeMinute;
-		this.endTimeHour = endTimeHour;
-		this.endTimeMinute = endTimeMinute;
 	}
 	
+	public Appointment(String appointmentState) {
+		super();
+		this.appointmentState = appointmentState;
+	}
 
-	public Appointment(Integer id, String specialist, String user, SlotState slotState, int day, int month, int year, int startTimeHour, int startTimeMinute, int endTimeHour, int endTimeMinute) {
+	public Appointment(Integer providerId, Integer customerId, String appointmentDate, String appointmentState) {
 		super();
-		this.id = id;
-		this.specialist = specialist;
-		this.user = user;
-		this.slotState = slotState;
-		this.day = day;
-		this.month = month;
-		this.year = year;
-		this.startTimeHour = startTimeHour;
-		this.startTimeMinute = startTimeMinute;
-		this.endTimeHour = endTimeHour;
-		this.endTimeMinute = endTimeMinute;
+		this.providerId = providerId;
+		this.customerId = customerId;
+		this.appointmentTime = appointmentDate;
+		this.appointmentState = appointmentState;
 	}
-	public Integer getId() {
-		return id;
+
+	
+	public Appointment(Integer appointmentId, Integer providerId, Integer customerId, String appointmentTime,  String appointmentState) {
+		super();
+		this.appointmentId = appointmentId;
+		this.providerId = providerId;
+		this.customerId = customerId;
+		this.appointmentTime = appointmentTime;
+
+		this.appointmentState = appointmentState;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+
+	public Appointment(Integer providerId, String appointmentTime, String appointmentState) {
+		super();
+		this.providerId = providerId;
+		this.appointmentTime = appointmentTime;
+		this.appointmentState = appointmentState;
 	}
-	public String getSpecialist() {
-		return specialist;
+
+	public Integer getAppointmentId() {
+		return appointmentId;
 	}
-	public void setSpecialist(String specialist) {
-		this.specialist = specialist;
+	
+	public void setAppointmentId(Integer appointmentId) {
+		this.appointmentId = appointmentId;
 	}
-	public String getUser() {
-		return user;
+	
+	public Integer getProviderId() {
+		return providerId;
 	}
-	public void setUser(String user) {
-		this.user = user;
+	
+	public void setProviderId(Integer providerId) {
+		this.providerId = providerId;
 	}
-	public int getDay() {
-		return day;
+	
+	public Integer getCustomerId() {
+		return customerId;
 	}
-	public void setDay(int day) {
-		this.day = day;
+	
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
-	public int getMonth() {
-		return month;
+	
+	public String getAppointmentTime() {
+		return appointmentTime;
 	}
-	public void setMonth(int month) {
-		this.month = month;
+	
+	public void setAppointmentTime(String appointmentTime) {
+		this.appointmentTime = appointmentTime;
 	}
-	public int getYear() {
-		return year;
+	
+	public String getAppointmentState() {
+		return appointmentState;
 	}
-	public void setYear(int year) {
-		this.year = year;
+	
+	public void setAppointmentState(String appointmentState) {
+		this.appointmentState = appointmentState;
 	}
-	public int getStartTimeHour() {
-		return startTimeHour;
+	
+	@Override
+	public String toString() {
+		return "Appointment [appointmentId=" + appointmentId + ", providerId=" + providerId + ", customerId=" + customerId + ", appointmentTime=" + appointmentTime + ", appointmentState=" + appointmentState + "]";
 	}
-	public void setStartTimeHour(int startTimeHour) {
-		this.startTimeHour = startTimeHour;
-	}
-	public int getStartTimeMinute() {
-		return startTimeMinute;
-	}
-	public void setStartTimeMinute(int startTimeMinute) {
-		this.startTimeMinute = startTimeMinute;
-	}
-	public int getEndTimeHour() {
-		return endTimeHour;
-	}
-	public void setEndTimeHour(int endTimeHour) {
-		this.endTimeHour = endTimeHour;
-	}
-	public int getEndTimeMinute() {
-		return endTimeMinute;
-	}
-	public void setEndTimeMinute(int endTimeMinute) {
-		this.endTimeMinute = endTimeMinute;
-	}
-	public SlotState getSlotState() {
-		return slotState;
-	}
-	public void setSlotState(SlotState slotState) {
-		this.slotState = slotState;
-	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + day;
-		result = prime * result + endTimeHour;
-		result = prime * result + endTimeMinute;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + month;
-		result = prime * result + ((slotState == null) ? 0 : slotState.hashCode());
-		result = prime * result + ((specialist == null) ? 0 : specialist.hashCode());
-		result = prime * result + startTimeHour;
-		result = prime * result + startTimeMinute;
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		result = prime * result + year;
+		result = prime * result + ((appointmentId == null) ? 0 : appointmentId.hashCode());
+		result = prime * result + ((appointmentState == null) ? 0 : appointmentState.hashCode());
+		result = prime * result + ((appointmentTime == null) ? 0 : appointmentTime.hashCode());
+		result = prime * result + ((customerId == null) ? 0 : customerId.hashCode());
+		result = prime * result + ((providerId == null) ? 0 : providerId.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -149,43 +111,32 @@ public class Appointment {
 		if (getClass() != obj.getClass())
 			return false;
 		Appointment other = (Appointment) obj;
-		if (day != other.day)
-			return false;
-		if (endTimeHour != other.endTimeHour)
-			return false;
-		if (endTimeMinute != other.endTimeMinute)
-			return false;
-		if (id == null) {
-			if (other.id != null)
+		if (appointmentId == null) {
+			if (other.appointmentId != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!appointmentId.equals(other.appointmentId))
 			return false;
-		if (month != other.month)
-			return false;
-		if (slotState != other.slotState)
-			return false;
-		if (specialist == null) {
-			if (other.specialist != null)
+		if (appointmentState == null) {
+			if (other.appointmentState != null)
 				return false;
-		} else if (!specialist.equals(other.specialist))
+		} else if (!appointmentState.equals(other.appointmentState))
 			return false;
-		if (startTimeHour != other.startTimeHour)
-			return false;
-		if (startTimeMinute != other.startTimeMinute)
-			return false;
-		if (user == null) {
-			if (other.user != null)
+		if (appointmentTime == null) {
+			if (other.appointmentTime != null)
 				return false;
-		} else if (!user.equals(other.user))
+		} else if (!appointmentTime.equals(other.appointmentTime))
 			return false;
-		if (year != other.year)
+		if (customerId == null) {
+			if (other.customerId != null)
+				return false;
+		} else if (!customerId.equals(other.customerId))
+			return false;
+		if (providerId == null) {
+			if (other.providerId != null)
+				return false;
+		} else if (!providerId.equals(other.providerId))
 			return false;
 		return true;
 	}
-	@Override
-	public String toString() {
-	    return "Appointment [id=" + id + ", specialist=" + specialist + ", user=" + user + ", slotState=" + slotState + ", day=" + day + ", month=" + month + ", year=" + year + ", startTimeHour="
-		    + startTimeHour + ", startTimeMinute=" + startTimeMinute + ", endTimeHour=" + endTimeHour + ", endTimeMinute=" + endTimeMinute + "]";
-	}
-	
+
 }
