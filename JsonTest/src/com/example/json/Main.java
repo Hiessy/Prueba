@@ -41,6 +41,7 @@ public class Main {
 		// Fijate que toda consulta Devuelve dos objetos: metadata(con
 		// informacion del estado de la consulta) y data con la informacion que
 		// se solicito
+		//http://localhost:8080/api/3/appointments?month=12
 		ServerResponse<HashMap<String, ProviderSchedule>> serverResponseGet = hacerGet("http://localhost:8080/api/3/appointments?month=12");
 
 		// Declaro un objeto del tipo ServerResponse para que reciva la
