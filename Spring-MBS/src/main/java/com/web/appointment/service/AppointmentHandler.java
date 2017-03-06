@@ -3,27 +3,20 @@ package com.web.appointment.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.web.appointment.model.Appointment;
+import com.web.appointment.model.AppointmentSlot;
 
 public class AppointmentHandler {
 
-	private Integer providerId;
+	private Integer personalId;
 	private String date;
 	private Integer start;
 	private Integer end;
 	private Integer duration;
 
-	public AppointmentHandler(Integer providerId, String date, Integer start, Integer end, Integer duration) {
+	public AppointmentHandler(Integer personalId, String date, Integer start, Integer end, Integer duration) {
 		super();
-		this.providerId = providerId;
+		this.personalId = personalId;
 		this.date = date;
-		this.start = start;
-		this.end = end;
-		this.duration = duration;
-	}
-
-	public AppointmentHandler(Integer start, Integer end, Integer duration) {
-		super();
 		this.start = start;
 		this.end = end;
 		this.duration = duration;
@@ -31,39 +24,6 @@ public class AppointmentHandler {
 
 	public AppointmentHandler() {
 		super();
-	}
-	
-	// TODO hacer mas eficiente la lista de usaudos deberia estar ordenador por
-	// hora
-	public List<Appointment> getFreeAppointments(List<String> appointmentsUsed) {
-
-		List<Appointment> resultOpen = new ArrayList<Appointment>();
-		Integer startSession;
-		Integer endSession;
-		int i = 0;
-		int appointmenSize = appointmentsUsed.size();
-		for (Integer hour = start; hour < end;) {
-			
-			startSession = hour;
-			if ((hour + duration - 60) % 100 == 0) {
-				endSession = (hour + duration - 60) + 100;
-			} else {
-				endSession = hour + duration;
-			}
-			
-			hour = endSession;
-			
-			if (i < appointmenSize && startSession.equals(Integer.valueOf(appointmentsUsed.get(i).substring(6, 10)))) {
-				i++;				
-			}else{
-				String start = startSession.toString();
-				Appointment appointment = new Appointment(providerId, date+(start.length() == 3 ? "0"+start : start ), "OPEN");
-				resultOpen.add(appointment);
-			}
-
-		}
-
-		return resultOpen;
 	}
 
 	public Integer getStart() {
@@ -91,11 +51,11 @@ public class AppointmentHandler {
 	}
 
 	public Integer getProviderId() {
-		return providerId;
+		return personalId;
 	}
 
 	public void setProviderId(Integer providerId) {
-		this.providerId = providerId;
+		this.personalId = providerId;
 	}
 
 	public String getDate() {
@@ -104,6 +64,39 @@ public class AppointmentHandler {
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	// TODO hacer mas eficiente la lista de usaudos deberia estar ordenador por
+	// hora
+	public List<AppointmentSlot> getFreeAppointments(List<String> appointmentsUsed) {
+
+		List<AppointmentSlot> resultOpen = new ArrayList<AppointmentSlot>();
+		Integer startSession;
+		Integer endSession;
+		int i = 0;
+		int appointmenSize = appointmentsUsed.size();
+		for (Integer hour = start; hour < end;) {
+
+			startSession = hour;
+			if ((hour + duration - 60) % 100 == 0) {
+				endSession = (hour + duration - 60) + 100;
+			} else {
+				endSession = hour + duration;
+			}
+
+			hour = endSession;
+
+			if (i < appointmenSize && startSession.equals(Integer.valueOf(appointmentsUsed.get(i).substring(6, 10)))) {
+				i++;
+			} else {
+				String start = startSession.toString();
+				String dateSlot = (start.length() == 3 ? "0" + start : start);
+				resultOpen.add(new AppointmentSlot(dateSlot, "/api/" + personalId + "/" + date + dateSlot + "/appointment"));
+			}
+
+		}
+
+		return resultOpen;
 	}
 
 }

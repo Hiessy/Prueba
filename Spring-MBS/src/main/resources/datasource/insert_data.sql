@@ -12,7 +12,7 @@ INSERT INTO subcategories(category_id,subcategory_name) VALUES
 (3,'Proctologist'), (3,'Clinic'), (3,'Cardiologist'),(4,'Car'),(4,'Bicicles'), (4,'Airplanes'),(4,'Motorboats'),
 (5,'Laptop'),(5,'Webpage'),(5,'PersonalPC');
 
-INSERT INTO businesses(category_id,business_name,provider_name,email,password,provider_state,creation_date,last_update) VALUES 
+INSERT INTO businesses(category_id,business_name,owner_name,email,password,business_state,creation_date,last_update) VALUES 
 (1,'Free Spa','Ramon Gonzalez','free_spa@mail.com','12345678','ACTIVE',NOW(),NOW()), (3,'Hospital Muñiz','Esteban Callone','hospital.muniz@mail.com','12345678','ACTIVE',NOW(),NOW()),
 (3,'Sanatorio Tortuga','Romina Castilla','rcastilla@mail.com','12345678','ACTIVE',NOW(),NOW());
 
@@ -61,7 +61,7 @@ INSERT INTO services (branch_id, subcategory_id, service_name, service_duration,
 (5,11,'Cardiologia',6,'ACTIVE'),
 (6,11,'Cardiologos Bonairenses',12,'ACTIVE');
 
-INSERT INTO providers (service_id, sunday, monday, tuesday, wednesday, thursday, friday, saturday, personal_state) VALUES
+INSERT INTO personal_schedules (service_id, sunday, monday, tuesday, wednesday, thursday, friday, saturday, personal_state) VALUES
 (1,'0000:0000','0900:1800','0900:1800','0900:1800','0900:1800','0900:1800','0000:0000','ACTIVE'),
 (1,'0000:0000','0900:1800','0900:1800','0900:1800','0900:1800','0900:1800','0000:0000','ACTIVE'),
 (2,'0800:1800','0800:1800','0000:0000','0800:1800','0800:1800','0000:0000','0800:1800','ACTIVE'),
@@ -100,12 +100,16 @@ INSERT INTO providers (service_id, sunday, monday, tuesday, wednesday, thursday,
 (14,'0000:0000','0900:1800','0900:1800','0900:1800','0900:1800','0900:1800','0000:0000','ACTIVE'),
 (14,'0000:0000','0900:1800','0900:1800','0900:1800','0900:1800','0900:1800','0000:0000','ACTIVE');
 
-INSERT INTO customers (address_id, customer_name, email, password) VALUES
-(7,'Agustin Larrarte','alarrarte@mail.com','1234abcd');
+INSERT INTO contacts (address_id, telephone, cellphone, personal_id_number, business_id_number) VALUES
+(7,'4453-6789','15-6894-4567','27093141', null);
+
+
+INSERT INTO customers (contact_id, customer_name, email, password, customer_state) VALUES
+(1,'Agustin Larrarte','alarrarte@mail.com','1234abcd', 'ACTIVE');
 
 /*
  *  appointment_time is stored as an unsigned int /YYMMDDHHMM
  *  for example: 1703021600 would be 16:00 02/02/2017
  */
-INSERT INTO appointments (provider_id, customer_id, appointment_time, appointment_state)
+INSERT INTO appointments (personal_schedule_id, customer_id, appointment_time, appointment_state)
 VALUES (1,1,'1703021600', 'CONFIRMEND'),(1,1,'1703030900', 'CONFIRMEND'),(1,1,'1703041600', 'CONFIRMEND'),(1,1,'1703060900', 'CONFIRMEND');

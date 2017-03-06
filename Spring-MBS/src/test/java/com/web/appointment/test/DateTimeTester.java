@@ -1,9 +1,6 @@
 package com.web.appointment.test;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
-
-import com.web.appointment.test.model.alternative.Appointment;
 
 public class DateTimeTester {
 

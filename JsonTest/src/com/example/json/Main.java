@@ -1,13 +1,12 @@
 package com.example.json;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -16,6 +15,7 @@ import org.codehaus.jackson.type.TypeReference;
 
 import com.example.json.model.Access;
 import com.example.json.model.Address;
+import com.example.json.model.ProviderSchedule;
 import com.example.json.model.User;
 import com.example.json.model.response.ServerResponse;
 
@@ -41,12 +41,11 @@ public class Main {
 		// Fijate que toda consulta Devuelve dos objetos: metadata(con
 		// informacion del estado de la consulta) y data con la informacion que
 		// se solicito
-		ServerResponse<User> serverResponseGet = hacerGet();
+		ServerResponse<HashMap<String, ProviderSchedule>> serverResponseGet = hacerGet("http://localhost:8080/api/3/appointments?month=12");
 
 		// Declaro un objeto del tipo ServerResponse para que reciva la
 		// respuesta de la consulta del tipo POST.
 		ServerResponse<Access> serverResponsePost = hacerPost();
-
 		ServerResponse<User> serverResponsePostwithBody = hacerPostConBody();
 		
 		System.out.println("***************************************************************************");
@@ -55,20 +54,20 @@ public class Main {
 
 		System.out.println(serverResponseGet.getMetaData());
 		System.out.println(serverResponseGet.getData());
-		System.out.println(serverResponseGet.getData().getContraseña());
+		System.out.println(serverResponseGet.getData().get("1").getAppointments().get("170304").get(0).toString());
 
-		System.out.println("****************************************************************************");
-		System.out.println("*****************************Resultado del POST*****************************");
-		System.out.println("****************************************************************************");
-
+//		System.out.println("****************************************************************************");
+//		System.out.println("*****************************Resultado del POST*****************************");
+//		System.out.println("****************************************************************************");
+//
 		System.out.println(serverResponsePost.getMetaData());
 		System.out.println(serverResponsePost.getData());
 		System.out.println(serverResponsePost.getData().getToken());
-		
-		System.out.println("****************************************************************************");
-		System.out.println("************************Resultado del POST con Body*************************");
-		System.out.println("****************************************************************************");
-
+//		
+//		System.out.println("****************************************************************************");
+//		System.out.println("************************Resultado del POST con Body*************************");
+//		System.out.println("****************************************************************************");
+//
 		System.out.println(serverResponsePostwithBody.getMetaData());
 		System.out.println(serverResponsePostwithBody.getData());
 		System.out.println(serverResponsePostwithBody.getData().getContraseña());
@@ -172,7 +171,7 @@ public class Main {
 
 		return serverResponse;
 	}
-	public static ServerResponse<User> hacerGet() {
+	public static ServerResponse<HashMap<String, ProviderSchedule>> hacerGet(String uri) {
 
 		// Declaro un Objeto Mapper para se encarga de tomar el InputStream e
 		// intanciar el objeto que lo recibe y le asigna los valores de cada
@@ -180,11 +179,11 @@ public class Main {
 		ObjectMapper mapper = new ObjectMapper();
 		// Declaro el objeto que va a recibir la respuesta de la consulta, en
 		// este caso es ServerResponse del tipo User
-		ServerResponse<User> serverResponse = null;
+		ServerResponse<HashMap<String, ProviderSchedule>> serverResponse = null;
 
 		try {
 			// Creo un objeto de URL con la URL de consulta
-			URL url = new URL("http://localhost:8080/find?email=martin@mail.com");
+			URL url = new URL(uri);
 
 			// El metodo de la url de openStream hace un GET automaticamente a
 			// la conexion y me devuelve un flujo de datos que lo guardo para
@@ -194,7 +193,7 @@ public class Main {
 			// Leo los valores con el metodo del mapper.readValue, ese metodo se
 			// carga de instanciar la clase ServerResponse y guardarle los datos
 			// de la respuesta del servidor
-			serverResponse = mapper.readValue(is, new TypeReference<ServerResponse<User>>() {
+			serverResponse = mapper.readValue(is, new TypeReference<ServerResponse<HashMap<String, ProviderSchedule>>>() {
 			});
 
 			// Cierro el stream de datos por prolijidad

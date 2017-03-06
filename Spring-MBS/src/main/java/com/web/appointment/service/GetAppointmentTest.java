@@ -7,36 +7,30 @@
  */
 package com.web.appointment.service;
 
-import java.lang.reflect.Method;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import com.web.appointment.model.Appointment;
+
+import com.web.appointment.model.AppointmentSlot;
+import com.web.appointment.model.PersonalSchedule;
 import com.web.appointment.model.Provider;
-import com.web.appointment.service.AppointmentHandler;
 
 public class GetAppointmentTest {
 
-	static String[] workingDaysMethod = { "getSunday", "getMonday", "getTuesday", "getWednesday", "getThursday",
-			"getFriday", "getSaturday" };
+	
 
-	public List<HashMap<String, List<Appointment>>> getExamples() throws Exception {
+	public HashMap<String, PersonalSchedule> getExamples() throws Exception {
 
-		AppointmentHandler apoHa = new AppointmentHandler();
-
-		HashMap<String, List<Appointment>> mapByProvider;
-		List<HashMap<String, List<Appointment>>> finalresult = new ArrayList<HashMap<String, List<Appointment>>>();
+		PersonalScheduleHandler providerScheduleHandler  = new PersonalScheduleHandler();
+		HashMap<String, List<AppointmentSlot>> mapByProvider;
+		HashMap<String, PersonalSchedule> finalresult = new HashMap<String, PersonalSchedule>();
 		// obtengo la lista de provedores
 		List<Provider> providers = new ArrayList<Provider>();
 
-		Provider provider1 = new Provider(1, 1, "0000:0000", "0900:1800", "0900:1800", "0900:1800", "0900:1800",
-				"0900:1800", "0000:0000");
-		Provider provider2 = new Provider(2, 1, "0800:1800", "0000:0000", "0945:1915", "0900:1400", "0900:1800",
-				"0900:1800", "0000:0000");
-		Provider provider3 = new Provider(3, 1, "0800:1800", "0800:1800", "0000:0000", "0800:1800", "0800:1800",
-				"0000:0000", "0800:1800");
+		Provider provider1 = new Provider(1, 1, "Juan Alejandro", "0000:0000", "0900:1800", "0900:1800", "0900:1800", "0900:1800", "0900:1800", "0000:0000");
+		Provider provider2 = new Provider(2, 1, "Roman Sanvito", "0800:1800", "0000:0000", "0945:1915", "0900:1400", "0900:1800", "0900:1800", "0000:0000");
+		Provider provider3 = new Provider(3, 1, "Julia Campanella", "0800:1800", "0800:1800", "0000:0000", "0800:1800", "0800:1800", "0000:0000", "0800:1800");
 
 		providers.add(provider1);
 		providers.add(provider2);
@@ -58,149 +52,12 @@ public class GetAppointmentTest {
 
 		for (Provider prov : providers) {
 
-			mapByProvider = new HashMap<String, List<Appointment>>();
-			int initial = LocalDate.now().getDayOfMonth();
-			int last = LocalDate.now().lengthOfMonth();
-			int offset = initial;
-			HashMap<String, Method> methods = new HashMap<String, Method>();
-
-			for (int i = 0; i < workingDaysMethod.length; i++) {
-
-				Method method = prov.getClass().getMethod(workingDaysMethod[i]);
-				if (!"0000:0000".equals(method.invoke(prov)))
-					methods.put(method.getName().substring(3, method.getName().length()).toUpperCase(), method);
-			}
-
-			if (methods.isEmpty())
-				break;
-
-			for (; initial <= last; initial++) {
-
-				LocalDate day = LocalDate.now().minusDays(2).plusDays(initial - offset);
-				String key = day.toString().replace("-", "").substring(2, 8);
-				String dayName = day.getDayOfWeek().toString();
-				String schedule = null;
-
-				if (methods.get(dayName) != null) {
-					schedule = (String) methods.get(dayName).invoke(prov);
-					// Setting handler
-					apoHa.setProviderId(prov.getProviderId());
-					apoHa.setDate(key);
-					apoHa.setDuration(3 * 5); // viene del servicio aca ya lo//
-												// multipleque por 5
-					// catch exception
-					apoHa.setStart(Integer.valueOf(schedule.substring(0, 4)));
-					apoHa.setEnd(Integer.valueOf(schedule.substring(5, 9)));
-
-					List<String> daysToSubtract = new ArrayList<String>();
-					int i = 0;
-
-					while (!takenSlots1.isEmpty() && key.equals(takenSlots1.get(i).substring(0, 6))) {
-						daysToSubtract.add(takenSlots1.get(i));
-						takenSlots1.remove(i);
-					}
-
-					mapByProvider.put(key, apoHa.getFreeAppointments(daysToSubtract));
-					daysToSubtract.clear();
-				}
-
-				if (prov.getProviderId() == 1 && key.equals("170301")){
-					System.out.println(mapByProvider.get("170301").equals(expectedFreeSlots(1)));
-					System.out.println(mapByProvider.get("170301"));
-					System.out.println(expectedFreeSlots(1));
-				}
-				if (prov.getProviderId() == 1 && key.equals("170317")){
-					System.out.println(mapByProvider.get("170317").equals(expectedFreeSlots2(1)));
-					System.out.println(mapByProvider.get("170317"));
-					System.out.println(expectedFreeSlots2(1));
-				}	
-			}
-			finalresult.add(mapByProvider);
+			PersonalSchedule providerSchedule = new PersonalSchedule(prov.getName(), providerScheduleHandler.getScheduleForProvider(prov, takenSlots1));
+			finalresult.put(prov.getProviderId().toString(),providerSchedule);
 
 		}
 		return finalresult;
 	}
-
-	private static List<Appointment> expectedFreeSlots(Integer id) {
-
-		// 0900:1800
-		List<Appointment> result = new ArrayList<Appointment>();
-		result.add(new Appointment(null, id, null, 1703010915 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703010930 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011000 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011015 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011030 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011045 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011100 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011115 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011130 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011145 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011200 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011215 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011230 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011245 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011300 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011315 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011330 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011345 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011400 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011415 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011430 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011445 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011500 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011515 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011530 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011545 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011615 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011630 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011700 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011715 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011730 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011745 + "", "OPEN"));
-		return result;
-	}
-	private static List<Appointment> expectedFreeSlots2(Integer id) {
-
-		// 0900:1800
-		List<Appointment> result = new ArrayList<Appointment>();	
-		result.add(new Appointment(null, id, null, "1703170900", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703170915", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703170930", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703170945", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171000", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171015", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171030", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171045", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171100", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171115", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171130", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171145", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171200", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171215", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171230", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171245", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171300", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171315", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171330", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171345", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171400", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171415", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171430", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171445", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171500", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171515", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171530", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171545", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171600", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171615", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171630", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171645", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171700", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171715", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171730", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171745", "OPEN"));
-	return result;
-}
 
 	private static List<String> getTakenslotsProvider1() {
 		List<String> takenSlots = new ArrayList<String>();
@@ -304,9 +161,9 @@ public class GetAppointmentTest {
 		return takenSlots;
 	}
 
-	private static HashMap<String, List<Appointment>> getExpectedResults() {
+	private static HashMap<String, List<AppointmentSlot>> getExpectedResults() {
 
-		HashMap<String, List<Appointment>> expectedResult = new HashMap<String, List<Appointment>>();
+		HashMap<String, List<AppointmentSlot>> expectedResult = new HashMap<String, List<AppointmentSlot>>();
 
 		// expectedFreeSlots.add(new Appointment(1, "1703011415", "OPEN"));
 		// expectedFreeSlots.add(new Appointment(1, "1703011430", "OPEN"));

@@ -13,7 +13,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import com.web.appointment.model.Appointment;
+
+
+
+import com.web.appointment.model.AppointmentSlot;
+import com.web.appointment.model.PersonalSchedule;
 import com.web.appointment.model.Provider;
 import com.web.appointment.service.AppointmentHandler;
 
@@ -22,20 +26,20 @@ public class GetAppointmentTest {
 	static String[] workingDaysMethod = { "getSunday", "getMonday", "getTuesday", "getWednesday", "getThursday",
 			"getFriday", "getSaturday" };
 
-	public List<HashMap<String, List<Appointment>>> getExamples() throws Exception {
+	public HashMap<String, PersonalSchedule> getExamples() throws Exception {
 
 		AppointmentHandler apoHa = new AppointmentHandler();
 
-		HashMap<String, List<Appointment>> mapByProvider;
-		List<HashMap<String, List<Appointment>>> finalresult = new ArrayList<HashMap<String, List<Appointment>>>();
+		HashMap<String, List<AppointmentSlot>> mapByProvider;
+		HashMap<String, PersonalSchedule> finalresult = new HashMap<String, PersonalSchedule>();
 		// obtengo la lista de provedores
 		List<Provider> providers = new ArrayList<Provider>();
 
-		Provider provider1 = new Provider(1, 1, "0000:0000", "0900:1800", "0900:1800", "0900:1800", "0900:1800",
+		Provider provider1 = new Provider(1, 1, "name1", "0000:0000", "0900:1800", "0900:1800", "0900:1800", "0900:1800",
 				"0900:1800", "0000:0000");
-		Provider provider2 = new Provider(2, 1, "0800:1800", "0000:0000", "0945:1915", "0900:1400", "0900:1800",
+		Provider provider2 = new Provider(2, 1, "name2", "0800:1800", "0000:0000", "0945:1915", "0900:1400", "0900:1800",
 				"0900:1800", "0000:0000");
-		Provider provider3 = new Provider(3, 1, "0800:1800", "0800:1800", "0000:0000", "0800:1800", "0800:1800",
+		Provider provider3 = new Provider(3, 1, "name3", "0800:1800", "0800:1800", "0000:0000", "0800:1800", "0800:1800",
 				"0000:0000", "0800:1800");
 
 		providers.add(provider1);
@@ -58,7 +62,7 @@ public class GetAppointmentTest {
 
 		for (Provider prov : providers) {
 
-			mapByProvider = new HashMap<String, List<Appointment>>();
+			mapByProvider = new HashMap<String, List<AppointmentSlot>>();
 			int initial = LocalDate.now().getDayOfMonth();
 			int last = LocalDate.now().lengthOfMonth();
 			int offset = initial;
@@ -104,101 +108,35 @@ public class GetAppointmentTest {
 					daysToSubtract.clear();
 				}
 
-				if (prov.getProviderId() == 1 && key.equals("170301")){
-					System.out.println(mapByProvider.get("170301").equals(expectedFreeSlots(1)));
-					System.out.println(mapByProvider.get("170301"));
-					System.out.println(expectedFreeSlots(1));
-				}
-				if (prov.getProviderId() == 1 && key.equals("170317")){
-					System.out.println(mapByProvider.get("170317").equals(expectedFreeSlots2(1)));
-					System.out.println(mapByProvider.get("170317"));
-					System.out.println(expectedFreeSlots2(1));
-				}	
+//				if (prov.getProviderId() == 1 && key.equals("170301")){
+//					System.out.println(mapByProvider.get("170301").equals(expectedFreeSlots(1)));
+//					System.out.println(mapByProvider.get("170301"));
+//					System.out.println(expectedFreeSlots(1));
+//				}
+//				if (prov.getProviderId() == 1 && key.equals("170317")){
+//					System.out.println(mapByProvider.get("170317").equals(expectedFreeSlots2(1)));
+//					System.out.println(mapByProvider.get("170317"));
+//					System.out.println(expectedFreeSlots2(1));
+//				}	
 			}
-			finalresult.add(mapByProvider);
+			finalresult.put(prov.getProviderId().toString(), new PersonalSchedule(prov.getName(),mapByProvider));
 
 		}
 		return finalresult;
 	}
 
-	private static List<Appointment> expectedFreeSlots(Integer id) {
+	private static List<AppointmentSlot> expectedFreeSlots() {
 
 		// 0900:1800
-		List<Appointment> result = new ArrayList<Appointment>();
-		result.add(new Appointment(null, id, null, 1703010915 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703010930 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011000 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011015 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011030 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011045 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011100 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011115 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011130 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011145 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011200 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011215 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011230 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011245 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011300 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011315 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011330 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011345 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011400 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011415 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011430 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011445 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011500 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011515 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011530 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011545 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011615 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011630 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011700 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011715 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011730 + "", "OPEN"));
-		result.add(new Appointment(null, id, null, 1703011745 + "", "OPEN"));
+		List<AppointmentSlot> result = new ArrayList<AppointmentSlot>();
+
 		return result;
 	}
-	private static List<Appointment> expectedFreeSlots2(Integer id) {
+	private static List<AppointmentSlot> expectedFreeSlots2(Integer id) {
 
 		// 0900:1800
-		List<Appointment> result = new ArrayList<Appointment>();	
-		result.add(new Appointment(null, id, null, "1703170900", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703170915", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703170930", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703170945", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171000", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171015", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171030", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171045", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171100", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171115", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171130", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171145", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171200", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171215", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171230", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171245", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171300", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171315", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171330", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171345", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171400", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171415", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171430", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171445", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171500", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171515", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171530", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171545", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171600", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171615", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171630", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171645", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171700", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171715", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171730", "OPEN"));
-		result.add(new Appointment(null, id, null, "1703171745", "OPEN"));
+		List<AppointmentSlot> result = new ArrayList<AppointmentSlot>();	
+
 	return result;
 }
 

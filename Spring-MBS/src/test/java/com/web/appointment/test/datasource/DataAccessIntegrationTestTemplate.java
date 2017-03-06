@@ -58,7 +58,7 @@ public class DataAccessIntegrationTestTemplate {
 		String serviceName = (String) resultSet.get("SERVICE_NAME");
 		Integer appointmentDuration = (Integer) resultSet.get("SERVICE_DURATION"); // duration
 
-		String slqGetProvider = "SELECT provider_id, sunday, monday, tuesday, wednesday, thursday, friday, saturday FROM providers where service_id = "
+		String slqGetProvider = "SELECT provider_id, sunday, monday, tuesday, wednesday, thursday, friday, saturday FROM personal_schedules where service_id = "
 				+ id + " AND personal_state = 'ACTIVE';";
 
 		List<Provider> providers = template.query(slqGetProvider, new RowMapper<Provider>() {

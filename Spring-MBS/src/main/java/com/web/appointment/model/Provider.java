@@ -4,22 +4,23 @@ public class Provider {
 	
 	private Integer providerId;
 	private Integer serviceId;
+	private String name;
 	private String monday;
 	private String tuesday;
 	private String wednesday; 
 	private String thursday;
 	private String friday; 
 	private String saturday;
-	private String sunday;	
+	private String sunday;
 	
 	public Provider() {
 		super();
 	}
-	
-	public Provider(Integer providerId, Integer serviceId, String sunday, String monday, String tuesday, String wednesday, String thursday, String friday, String saturday) {
+	public Provider(Integer providerId, Integer serviceId, String name, String monday, String tuesday, String wednesday, String thursday, String friday, String saturday, String sunday) {
 		super();
 		this.providerId = providerId;
 		this.serviceId = serviceId;
+		this.name = name;
 		this.monday = monday;
 		this.tuesday = tuesday;
 		this.wednesday = wednesday;
@@ -28,19 +29,6 @@ public class Provider {
 		this.saturday = saturday;
 		this.sunday = sunday;
 	}
-	
-	public Provider(Integer providerId, String sunday, String monday, String tuesday, String wednesday, String thursday, String friday, String saturday) {
-		super();
-		this.providerId = providerId;
-		this.monday = monday;
-		this.tuesday = tuesday;
-		this.wednesday = wednesday;
-		this.thursday = thursday;
-		this.friday = friday;
-		this.saturday = saturday;
-		this.sunday = sunday;
-	}
-		
 	public Integer getProviderId() {
 		return providerId;
 	}
@@ -52,6 +40,12 @@ public class Provider {
 	}
 	public void setServiceId(Integer serviceId) {
 		this.serviceId = serviceId;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getMonday() {
 		return monday;
@@ -97,7 +91,10 @@ public class Provider {
 	}
 	@Override
 	public String toString() {
-		return "Provider [providerId=" + providerId + ", serviceId=" + serviceId + ", monday=" + monday + ", tuesday=" + tuesday + ", wednesday=" + wednesday + ", thursday=" + thursday + ", friday=" + friday + ", saturday=" + saturday + ", sunday=" + sunday + "]";
-	}
+		return "Provider [providerId=" + providerId + ", serviceId=" + serviceId + ", name=" + name + ", monday=" + monday + ", tuesday=" + tuesday + ", wednesday=" + wednesday + ", thursday=" + thursday + ", friday=" + friday + ", saturday=" + saturday + ", sunday=" + sunday
+				+ "]";
+	}	
+	
+
 	
 }

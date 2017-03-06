@@ -31,10 +31,10 @@ CREATE TABLE businesses (
 business_id INT(8) NOT NULL AUTO_INCREMENT,
 category_id INT(8) NOT NULL,
 business_name varchar(255) NOT NULL,
-provider_name varchar(255) NOT NULL,
+owner_name varchar(255) NOT NULL,
 email varchar(255) NOT NULL UNIQUE,
 password varchar(255),
-provider_state varchar(255),
+business_state varchar(255),
 creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 last_update DATETIME DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY (business_id),
@@ -74,8 +74,8 @@ PRIMARY KEY (service_id),
 FOREIGN KEY (branch_id) REFERENCES branches(branch_id),
 FOREIGN KEY (subcategory_id) REFERENCES subcategories(subcategory_id));
 
-CREATE TABLE providers (
-provider_id INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE personal_schedules (
+personal_schedule_id INT NOT NULL AUTO_INCREMENT,
 service_id INT(10) NOT NULL,
 sunday varchar(9),
 monday varchar(9),
@@ -85,34 +85,55 @@ thursday varchar(9),
 friday varchar(9),
 saturday varchar(9),
 personal_state varchar(25),
-PRIMARY KEY (provider_id),
+PRIMARY KEY (personal_schedule_id),
 FOREIGN KEY (service_id) REFERENCES services(service_id));
+
+CREATE TABLE contacts (
+contact_id INT NOT NULL AUTO_INCREMENT,
+address_id INT(10) NOT NULL,
+telephone varchar(255),
+cellphone varchar(255),
+personal_id_number varchar(255), /*DNI/LCI /Passport/ etc */
+business_id_number varchar(255), /*CUIT / CUIL*/
+PRIMARY KEY (contact_id),
+FOREIGN KEY (address_id) REFERENCES addresses(address_id));
 
 /**/
 CREATE TABLE customers (
 customer_id INT NOT NULL AUTO_INCREMENT,
-address_id INT(10) NOT NULL,
+contact_id INT(10) NOT NULL,
 customer_name varchar(255) NOT NULL,
 email varchar(255) NOT NULL UNIQUE,
 password varchar(255),
+customer_state varchar(255)NOT NULL,
 PRIMARY KEY (customer_id),
-FOREIGN KEY (address_id) REFERENCES addresses(address_id));
+FOREIGN KEY (contact_id) REFERENCES contacts(contact_id));
 
 CREATE TABLE personal (
 personal_id INT NOT NULL AUTO_INCREMENT,
-provider_id INT(10) NOT NULL,
+personal_schedule_id INT(10) NOT NULL,
+contact_id INT(10) NOT NULL,
 personal_name varchar(255) NOT NULL,
 email varchar(255) NOT NULL UNIQUE,
 password varchar(255),
 PRIMARY KEY (personal_id),
-FOREIGN KEY (provider_id) REFERENCES providers(provider_id));
+FOREIGN KEY (personal_schedule_id) REFERENCES personal_schedules(personal_schedule_id));
+
+CREATE TABLE profiles (
+profile_id INT NOT NULL AUTO_INCREMENT,
+personal_id INT(10) NOT NULL,
+business_id INT(8) NOT NULL,
+profile_type varchar(255) NOT NULL,
+PRIMARY KEY (profile_id),
+FOREIGN KEY (personal_id) REFERENCES personal(personal_id),
+FOREIGN KEY (business_id) REFERENCES businesses(business_id));
 
 CREATE TABLE appointments (
 appointment_id INT NOT NULL AUTO_INCREMENT,
-provider_id INT NOT NULL,
+personal_schedule_id INT NOT NULL,
 customer_id INT NOT NULL,
 appointment_time TEXT(10) NOT NULL,
 appointment_state varchar(25),
 PRIMARY KEY (appointment_id),
-FOREIGN KEY (provider_id) REFERENCES providers(provider_id),
+FOREIGN KEY (personal_schedule_id) REFERENCES personal_schedules(personal_schedule_id),
 FOREIGN KEY (customer_id) REFERENCES customers(customer_id));
