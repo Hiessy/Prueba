@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.web.application.model.response.MetaData;
 import com.web.application.model.response.ServerResponse;
-import com.web.user.model.Access;
-import com.web.user.model.Address;
-import com.web.user.model.User;
+
+import com.web.user.model.Customer;
+
 
 @Controller
 @EnableAutoConfiguration
@@ -29,9 +30,9 @@ public class UserController {
 
 	//
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<ServerResponse<User>> registerUser(@RequestBody User user) {
+	public ResponseEntity<ServerResponse<Customer>> registerUser(@RequestBody Customer user) {
 
-		ServerResponse<User> userResponse = new ServerResponse<User>();
+		ServerResponse<Customer> userResponse = new ServerResponse<Customer>();
 		MetaData userMetaData = new MetaData();
 
 		userMetaData.setInfo("User registration request");
@@ -50,7 +51,7 @@ public class UserController {
 		}
 
 		userResponse.setMetaData(userMetaData);
-		return new ResponseEntity<ServerResponse<User>>(userResponse, HttpStatus.OK);
+		return new ResponseEntity<ServerResponse<Customer>>(userResponse, HttpStatus.OK);
 	}
 
 	// http://localhost:8080/validate?email=martin@mail.com&string=prueba123
@@ -82,9 +83,9 @@ public class UserController {
 
 	// http://localhost:8080/find?email=martin@mail.com
 	@RequestMapping(value = "/find", params = "email", method = RequestMethod.GET)
-	public ResponseEntity<ServerResponse<User>> validate(@RequestParam("email") String email) {
+	public ResponseEntity<ServerResponse<Client>> validate(@RequestParam("email") String email) {
 
-		ServerResponse<User> userSearchResponse = new ServerResponse<User>();
+		ServerResponse<Client> userSearchResponse = new ServerResponse<Client>();
 		MetaData userSearchMetaData = new MetaData();
 		userSearchMetaData.setInfo("User search request");
 		try {
@@ -93,8 +94,8 @@ public class UserController {
 			userSearchResponse.setMetaData(userSearchMetaData);
 			userSearchMetaData.setMessage("User found succesfully");
 			// TODO get user method
-
-			userSearchResponse.setData(getUserByEmail(email));
+// buscar user de consulta
+			userSearchResponse.setData();
 			if (userSearchResponse.getData() == null)
 				throw new RuntimeException("User not found");
 
@@ -106,58 +107,9 @@ public class UserController {
 			LOGGER.error("User not found error" + e.getMessage());
 		}
 
-		return new ResponseEntity<ServerResponse<User>>(userSearchResponse, HttpStatus.OK);
+		return new ResponseEntity<ServerResponse<Client>>(userSearchResponse, HttpStatus.OK);
 	}
 
-	private User getUserByEmail(String email) {
-		User user = null;
-		List<Address> adress = null;
-
-		if (email.equals("martin@mail.com")) {
-			user = new User();
-			adress = new ArrayList<Address>();
-			Address addr = new Address();
-			Address addr2 = new Address();
-
-			user.setMail("martin@mail.com");
-			user.setNombre("Martin");
-			user.setApellido("Diaz");
-			user.setDni("27093141");
-			user.setFechDeNacimiento("06/03/1979");
-			user.setSexo("M");
-			user.setTelefono("54 11 44315780");
-			user.setContraseña("prueba123");
-			addr.setPais("Argentina");
-			addr.setProvincia("CABA");
-			addr.setBarrio("Caballito");
-			addr.setDireccion("direccion larga");
-
-			addr2.setPais("Argentina");
-			addr2.setProvincia("CABA");
-			addr2.setBarrio("Cogland");
-			addr2.setDireccion("direccion larga 2");
-
-			adress.add(addr);
-			adress.add(addr2);
-			user.setAddress(adress);
-		}
-		return user;
-	}
-
-	private Access checkUserAuthorization(String email, String pass) throws RuntimeException{
-
-		Access access = new Access();
-
-		if (pass.equals("prueba123")) {
-			access.setToken(getHash(email + ":" + pass));
-			access.setAccepted(true);
-		} else {
-			access.setAccepted(false);
-			throw new RuntimeException("Error trying to validate, wrong user/pass");
-		}
-
-		return access;
-	}
 
 	private String getHash(String toHash) {
 
