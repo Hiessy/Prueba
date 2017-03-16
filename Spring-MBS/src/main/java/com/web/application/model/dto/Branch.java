@@ -1,8 +1,6 @@
-package com.web.appointment.test.model.alternative;
+package com.web.application.model.dto;
 
 import java.util.List;
-
-import com.web.application.model.enums.UserState;
 
 public class Branch {
 
@@ -10,7 +8,7 @@ public class Branch {
 	private int providerId;// Id_Proveedor
 	private int telephone;// Telefono
 	private Address address;
-	private UserState branchState;// Estado_Sucursal
+	private String branchState;// Estado_Sucursal
 	private List<Service> services;
 	public int getBranchId() {
 		return branchId;
@@ -37,10 +35,10 @@ public class Branch {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	public UserState getBranchState() {
+	public String getBranchState() {
 		return branchState;
 	}
-	public void setBranchState(UserState branchState) {
+	public void setBranchState(String branchState) {
 		this.branchState = branchState;
 	}
 	public List<Service> getServices() {

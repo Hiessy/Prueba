@@ -3,7 +3,7 @@ package com.web.appointment.test.model.alternative;
 import java.util.Date;
 import java.util.List;
 
-import com.web.generic.model.enums.ProviderState;
+import com.web.application.model.enums.UserState;
 
 public class Personal {
 
@@ -14,7 +14,7 @@ public class Personal {
 	private String providerPassword; // Apellido_Encargada
 	private List<Branch> branches; // Cantidad_Sucursales
 	private String category; // Rubro
-	private ProviderState providerState; // Estado_Proveedor {Ok - Bloqueado - baja}
+	private UserState providerState; // Estado_Proveedor {Ok - Bloqueado - baja}
 	private String hmoProvider; // Obra social
 
 	public Integer getProviderId() {
@@ -57,11 +57,11 @@ public class Personal {
 		this.providerEmail = providerEmail;
 	}
 
-	public ProviderState getProviderState() {
+	public UserState getProviderState() {
 		return providerState;
 	}
 
-	public void setProviderState(ProviderState providerState) {
+	public void setProviderState(UserState providerState) {
 		this.providerState = providerState;
 	}
 

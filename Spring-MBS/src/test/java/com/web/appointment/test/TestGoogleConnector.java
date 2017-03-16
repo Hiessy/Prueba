@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.web.generic.model.google.AddressComponent;
-import com.web.generic.model.google.Result;
-import com.web.generic.service.GoogleConnector;
+import com.web.application.model.google.dto.AddressComponent;
+import com.web.application.model.google.dto.Result;
+import com.web.application.service.google.connectors.GoogleConnector;
 
 public class TestGoogleConnector {
 
@@ -35,7 +35,7 @@ public class TestGoogleConnector {
 //		addresses.add(addr6);
 		
 		for (String[] address : addresses) {
-			Result result = GoogleConnector.getGoogleResponse(address[0], address[1], address[2], address[3], address[4]).getResults().get(0);
+			Result result = GoogleConnector.getGoogleResponse(Integer.valueOf(address[0]), address[1], address[2], address[3], address[4]).getResults().get(0);
 			for (AddressComponent ap : result.getAddress_components())
 				if (ap.getTypes().get(0).equals("postal_code"))
 					System.out.println("CP " + ap.getLong_name());

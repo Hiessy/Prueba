@@ -14,12 +14,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-
-
-import com.web.appointment.model.AppointmentSlot;
-import com.web.appointment.model.PersonalSchedule;
-import com.web.appointment.model.Provider;
-import com.web.appointment.service.AppointmentHandler;
+import com.web.application.model.dto.AppointmentSlot;
+import com.web.application.model.dto.PersonalSchedule;
+import com.web.application.model.dto.Provider;
+import com.web.application.service.AppointmentHandler;
 
 public class GetAppointmentTest {
 
