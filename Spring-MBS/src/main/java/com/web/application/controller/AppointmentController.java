@@ -2,8 +2,6 @@ package com.web.application.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -32,7 +30,7 @@ public class AppointmentController {
 		ServerResponse<HashMap<String, PersonalSchedule>> brachResponse = new ServerResponse<HashMap<String, PersonalSchedule>>();
 		MetaData accessMetaData = new MetaData();
 
-		accessMetaData.setInfo("Free Appointments for business id: " + id);
+		accessMetaData.setMessage("Free Appointments for business id: " + id);
 		try {
 			accessMetaData.setHttpStatus(HttpStatus.OK);
 			accessMetaData.setMessage("Appointments obtained succesfully");

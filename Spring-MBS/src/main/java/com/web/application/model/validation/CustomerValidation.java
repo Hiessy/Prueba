@@ -28,6 +28,6 @@ public class CustomerValidation {
 		if(customer.getContact() == null)
 			throw new CustomerException("Customer is missing contact ifnormation"); 
 		else if(ContactValidation.validateContact(customer.getContact()))
-			throw new CustomerException("Customer contact information is  missing address or id information"); 
+			throw new CustomerException("Customer contact information is missing address or id information"); 
 	}
 }

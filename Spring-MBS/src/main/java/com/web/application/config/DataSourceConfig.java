@@ -10,7 +10,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 public class DataSourceConfig {
 
     @Bean
-    public DataSource dataSource() {
+    public static DataSource dataSource() {
         return new EmbeddedDatabaseBuilder()
             .generateUniqueName(true)
             .setType(org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2)

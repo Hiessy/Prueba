@@ -31,7 +31,7 @@ public class ProviderController {
 		ServerResponse<Provider> providerRegistrationResponse = new ServerResponse<Provider>();
 		MetaData accessMetaData = new MetaData();
 
-		accessMetaData.setInfo("Provider registration request");
+		accessMetaData.setMessage("Provider registration request");
 
 		try {
 

@@ -1,15 +1,27 @@
 package com.web.application.model.dto;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import com.web.application.model.enums.UserState;
 
+@Entity
+@Table(name = "customer")
 public class Customer {
 	
-	
+	@Id
+	@GeneratedValue
 	private int customerId; // Id_Cliente Numerico Incremental
+	@OneToOne 
 	private Contact contact;
 	private String customerName;// Nombre Texto
 	private String customerEmail;// Mail Texto
 	private String customerPassword;// Mail Texto
+	private String dateOfBirth;
 	private UserState customerState;// Mail Texto
 	
 	public Customer() {
@@ -25,6 +37,7 @@ public class Customer {
 		this.customerPassword = customerPassword;
 		this.customerState = customerState;
 	}
+	
 	
 	public int getCustomerId() {
 		return customerId;
@@ -65,6 +78,14 @@ public class Customer {
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", contact=" + contact + ", customerName=" + customerName + ", customerEmail=" + customerEmail + ", customerPassword=" + customerPassword + ", customerState=" + customerState + "]";
+	}
+
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
 

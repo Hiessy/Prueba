@@ -11,10 +11,10 @@ public class ContactValidation {
 		else if(AddressValidation.validateAddress(contact.getAddress()))
 			return true;
 		
-		if(contact.getTelephone() == null)
+		if("".equals(contact.getTelephone()))
 			return true;
-		
-		if(contact.getBusinessIdNumber().isEmpty() || contact.getPersonalIdNumber().isEmpty())
+
+		if("".equals(contact.getBusinessIdNumber()) && "".equals(contact.getPersonalIdNumber()))
 			return true;
 		
 		return false;

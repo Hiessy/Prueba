@@ -5,16 +5,7 @@ import org.springframework.http.HttpStatus;
 public class MetaData {
 
 	private HttpStatus httpStatus;
-	private String code;
 	private String message;
-
-	public String getInfo() {
-		return this.code;
-	}
-
-	public void setInfo(String info) {
-		this.code = info;
-	}
 
 	public HttpStatus getHttpStatus() {
 		return httpStatus;
@@ -34,8 +25,7 @@ public class MetaData {
 
 	@Override
 	public String toString() {
-		return "MetaData [httpStatus=" + httpStatus + ", code=" + code + ", message=" + message + "]";
+		return "MetaData [httpStatus=" + httpStatus + ", message=" + message + "]";
 	}
-
 
 }
