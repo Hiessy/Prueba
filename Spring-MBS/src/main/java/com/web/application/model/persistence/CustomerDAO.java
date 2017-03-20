@@ -75,28 +75,28 @@ public class CustomerDAO {
 
 	private Customer getCustomersById(String id) throws SQLException {
 		
-		Statement stmt = conn.createStatement();		
-		
-		String sqlGetCustomerById = "SELECT * FROM customers WHERE customer_id = " + id;
-		
-        ResultSet rsCustomer = stmt.executeQuery(sqlGetCustomerById);                
-		LOGGER.info("Customer information{customer_id: " + rsCustomer.getInt("customer_id") + " ,contact_id: " +rsCustomer.getInt("contact_id")+ " ,customer_name: " +rsCustomer.getString("customer_name")+ " ,email: " +rsCustomer.getString("email")+ " ,password: " +rsCustomer.getString("password")+ " ,customer_state: " +rsCustomer.getString("customer_state"));
-		
-		String sqlGetContactById = "SELECT * FROM contacts WHERE customer_id = " + rsCustomer.getInt("contact_id");	
-		
-		ResultSet rsContact = stmt.executeQuery(sqlGetContactById);		
-		LOGGER.info("Contact information{contact_id: " + rsContact.getInt("contact_id") + " ,address_id: " +rsContact.getInt("address_id")+ " ,telephone: " +rsContact.getString("telephone")+ " ,cellphone: " +rsContact.getString("cellphone")+ " ,personal_id_number: " +rsContact.getString("personal_id_number")+ " ,business_id_number: " +rsContact.getString("business_id_number"));
-		
-		String sqlAddressById = "SELECT * FROM addresses WHERE customer_id = " + rsContact.getInt("address_id");		
-		
-		ResultSet rsAddress = stmt.executeQuery(sqlAddressById);		
-		LOGGER.info("Address information{address_id: " + rsAddress.getInt("address_id") + " ,street: " +rsContact.getString("street")+ " ,street_nbr: " +rsContact.getString("street_nbr")+ " ,floor: " +rsContact.getString("floor")+ " ,postalCode: " +rsContact.getString("postalCode")+ " ,district: " +rsContact.getString("district")+ " ,city: " +rsContact.getString("city")+ " ,province: " +rsContact.getString("province")+ " ,country: " +rsContact.getString("country")+ " ,coordenates: " +rsContact.getString("coordenates"));
-		
-		Address address = new Address(rsAddress.getInt("address_id"),rsContact.getString("street"),Integer.valueOf(rsContact.getString("street_nbr")),Integer.valueOf(rsContact.getString("floor")),rsContact.getString("postalCode"),rsContact.getString("district"),rsContact.getString("city"),rsContact.getString("province"),rsContact.getString("country"),rsContact.getString("coordenates"));
-		Contact contact = new Contact(rsContact.getInt("contact_id"),address,rsContact.getString("telephone"),rsContact.getString("cellphone"),rsContact.getString("personal_id_number"),rsContact.getString("business_id_number"));
-		Customer customer = new Customer(rsCustomer.getInt("customer_id"), contact,rsCustomer.getString("customer_name"),rsCustomer.getString("email"),rsCustomer.getString("password"),rsCustomer.getString("customer_dob"),rsCustomer.getString("customer_state"));
-
-		return customer;
+//		Statement stmt = conn.createStatement();		
+//		
+//		String sqlGetCustomerById = "SELECT * FROM customers WHERE customer_id = " + id;
+//		
+//        ResultSet rsCustomer = stmt.executeQuery(sqlGetCustomerById);                
+//		LOGGER.info("Customer information{customer_id: " + rsCustomer.getInt("customer_id") + " ,contact_id: " +rsCustomer.getInt("contact_id")+ " ,customer_name: " +rsCustomer.getString("customer_name")+ " ,email: " +rsCustomer.getString("email")+ " ,password: " +rsCustomer.getString("password")+ " ,customer_state: " +rsCustomer.getString("customer_state"));
+//		
+//		String sqlGetContactById = "SELECT * FROM contacts WHERE customer_id = " + rsCustomer.getInt("contact_id");	
+//		
+//		ResultSet rsContact = stmt.executeQuery(sqlGetContactById);		
+//		LOGGER.info("Contact information{contact_id: " + rsContact.getInt("contact_id") + " ,address_id: " +rsContact.getInt("address_id")+ " ,telephone: " +rsContact.getString("telephone")+ " ,cellphone: " +rsContact.getString("cellphone")+ " ,personal_id_number: " +rsContact.getString("personal_id_number")+ " ,business_id_number: " +rsContact.getString("business_id_number"));
+//		
+//		String sqlAddressById = "SELECT * FROM addresses WHERE customer_id = " + rsContact.getInt("address_id");		
+//		
+//		ResultSet rsAddress = stmt.executeQuery(sqlAddressById);		
+//		LOGGER.info("Address information{address_id: " + rsAddress.getInt("address_id") + " ,street: " +rsContact.getString("street")+ " ,street_nbr: " +rsContact.getString("street_nbr")+ " ,floor: " +rsContact.getString("floor")+ " ,postalCode: " +rsContact.getString("postalCode")+ " ,district: " +rsContact.getString("district")+ " ,city: " +rsContact.getString("city")+ " ,province: " +rsContact.getString("province")+ " ,country: " +rsContact.getString("country")+ " ,coordenates: " +rsContact.getString("coordenates"));
+//		
+//		Address address = new Address(rsAddress.getInt("address_id"),rsContact.getString("street"),Integer.valueOf(rsContact.getString("street_nbr")),Integer.valueOf(rsContact.getString("floor")),rsContact.getString("postalCode"),rsContact.getString("district"),rsContact.getString("city"),rsContact.getString("province"),rsContact.getString("country"),rsContact.getString("coordenates"));
+//		Contact contact = new Contact(rsContact.getInt("contact_id"),address,rsContact.getString("telephone"),rsContact.getString("cellphone"),rsContact.getString("personal_id_number"),rsContact.getString("business_id_number"));
+//		Customer customer = new Customer(rsCustomer.getInt("customer_id"), contact,rsCustomer.getString("customer_name"),rsCustomer.getString("email"),rsCustomer.getString("password"),rsCustomer.getString("customer_dob"),rsCustomer.getString("customer_state"));
+//
+		return null;
 	}
 
 	private int insertCustomer(Customer customer) throws SQLException {
