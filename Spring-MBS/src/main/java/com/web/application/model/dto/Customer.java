@@ -1,35 +1,34 @@
 package com.web.application.model.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
-import com.web.application.model.enums.UserState;
-
-@Entity
-@Table(name = "customer")
 public class Customer {
 	
-	@Id
-	@GeneratedValue
+
 	private int customerId; // Id_Cliente Numerico Incremental
-	@OneToOne 
 	private Contact contact;
 	private String customerName;// Nombre Texto
 	private String customerEmail;// Mail Texto
 	private String customerPassword;// Mail Texto
-	private String dateOfBirth;
-	private UserState customerState;// Mail Texto
+	private String customerDob;
+	private String customerState;// Mail Texto
 	
 	public Customer() {
 		super();
 	}
+		
+	public Customer(int customerId, Contact contact, String customerName, String customerEmail, String customerPassword, String dateOfBirth, String customerState) {
+		super();
+		this.customerId = customerId;
+		this.contact = contact;
+		this.customerName = customerName;
+		this.customerEmail = customerEmail;
+		this.customerPassword = customerPassword;
+		this.customerDob = dateOfBirth;
+		this.customerState = customerState;
+	}
 
 	public Customer(Contact contact, String customerName, String customerEmail, String customerPassword,
-			UserState customerState) {
+			String customerState) {
 		super();
 		this.contact = contact;
 		this.customerName = customerName;
@@ -37,6 +36,7 @@ public class Customer {
 		this.customerPassword = customerPassword;
 		this.customerState = customerState;
 	}
+	
 	
 	
 	public int getCustomerId() {
@@ -69,10 +69,10 @@ public class Customer {
 	public void setCustomerPassword(String customerPassword) {
 		this.customerPassword = customerPassword;
 	}
-	public UserState getCustomerState() {
+	public String getCustomerState() {
 		return customerState;
 	}
-	public void setCustomerState(UserState customerState) {
+	public void setCustomerState(String customerState) {
 		this.customerState = customerState;
 	}
 	@Override
@@ -80,12 +80,12 @@ public class Customer {
 		return "Customer [customerId=" + customerId + ", contact=" + contact + ", customerName=" + customerName + ", customerEmail=" + customerEmail + ", customerPassword=" + customerPassword + ", customerState=" + customerState + "]";
 	}
 
-	public String getDateOfBirth() {
-		return dateOfBirth;
+	public String getCustomerDob() {
+		return customerDob;
 	}
 
-	public void setDateOfBirth(String dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+	public void setCustomerDob(String dateOfBirth) {
+		this.customerDob = dateOfBirth;
 	}
 
 

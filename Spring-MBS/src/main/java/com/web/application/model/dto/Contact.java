@@ -1,21 +1,9 @@
 package com.web.application.model.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
-
-@Entity
-@Table(name = "contacts")
 public class Contact {
 
-	@Id
-	@GeneratedValue
 	private int contactId;
-	@OneToOne 
 	private Address address;
 	private String telephone;
 	private String cellphone;
@@ -26,6 +14,18 @@ public class Contact {
 	public Contact() {
 		super();
 	}
+	
+	public Contact(int contactId, Address address, String telephone, String cellphone, String personalIdNumber, String businessIdNumber) {
+		super();
+		this.contactId = contactId;
+		this.address = address;
+		this.telephone = telephone;
+		this.cellphone = cellphone;
+		this.personalIdNumber = personalIdNumber;
+		this.businessIdNumber = businessIdNumber;
+	}
+
+
 
 	public Contact(Address address, String telephone, String personalIdNumber, String businessIdNumber) {
 		super();

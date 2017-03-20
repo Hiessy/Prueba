@@ -1,19 +1,8 @@
 package com.web.application.model.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-
-
-
-@Entity
-@Table(name = "addresses")
 public class Address {
 
-	@Id
-	@GeneratedValue
 	private int addressId;
 	private String street;// Direccion_Sucursal
 	private int number;// DireccionNro_Sucursal

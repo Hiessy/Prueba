@@ -104,8 +104,8 @@ INSERT INTO contacts (address_id, telephone, cellphone, personal_id_number, busi
 (7,'4453-6789','15-6894-4567','27093141', null);
 
 
-INSERT INTO customers (contact_id, customer_name, email, password, customer_state) VALUES
-(1,'Agustin Larrarte','alarrarte@mail.com','1234abcd', 'ACTIVE');
+INSERT INTO customers (contact_id, customer_name, email, password,customer_dob ,customer_state) VALUES
+(1,'Agustin Larrarte','alarrarte@mail.com','1234abcd','19821112','ACTIVE');
 
 /*
  *  appointment_time is stored as an unsigned int /YYMMDDHHMM

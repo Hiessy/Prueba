@@ -93,8 +93,8 @@ contact_id INT NOT NULL AUTO_INCREMENT,
 address_id INT(10) NOT NULL,
 telephone varchar(255),
 cellphone varchar(255),
-personal_id_number varchar(255), /*DNI/LCI /Passport/ etc */
-business_id_number varchar(255), /*CUIT / CUIL*/
+personal_id_number varchar(255),
+business_id_number varchar(255),
 PRIMARY KEY (contact_id),
 FOREIGN KEY (address_id) REFERENCES addresses(address_id));
 
@@ -105,6 +105,7 @@ contact_id INT(10) NOT NULL,
 customer_name varchar(255) NOT NULL,
 email varchar(255) NOT NULL UNIQUE,
 password varchar(255),
+customer_dob varchar(255),
 customer_state varchar(255)NOT NULL,
 PRIMARY KEY (customer_id),
 FOREIGN KEY (contact_id) REFERENCES contacts(contact_id));

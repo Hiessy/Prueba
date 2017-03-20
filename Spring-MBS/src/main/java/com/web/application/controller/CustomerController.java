@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +27,7 @@ public class CustomerController {
 
 	// TODO CREATES A CUSOMTER
 	@RequestMapping(value = "/customers", method = RequestMethod.POST)
-	public ResponseEntity<ServerResponse<Customer[]>> registerUser(@RequestBody Customer[] customers) {
+	public ResponseEntity<ServerResponse<Customer[]>> registerCustomer(@RequestBody Customer[] customers) {
 
 		ServerResponse<Customer[]> userResponse = new ServerResponse<Customer[]>();
 		MetaData userMetaData = new MetaData();
@@ -48,9 +49,30 @@ public class CustomerController {
 		return new ResponseEntity<ServerResponse<Customer[]>>(userResponse, HttpStatus.OK);
 	}
 
-	//TODO POST /customers -- body Json
-	//TODO GET /customers/{id}
-	//TODO PUT /customers/{id} -- body Json
-	//TODO DELETE /customers/{id}
+	// TODO GET /customers/{id}
+	@RequestMapping(value = "/customers/{id}", method = RequestMethod.GET)
+	public ResponseEntity<ServerResponse<Customer>> getCustomerById(@PathVariable String id) {
+
+		ServerResponse<Customer> userResponse = new ServerResponse<Customer>();
+		MetaData userMetaData = new MetaData();
+
+		try {
+			userMetaData.setMessage("Customers was located succesfully");
+			userMetaData.setHttpStatus(HttpStatus.OK);
+			userResponse.setData(customerDAO.getCustomers(id));
+			LOGGER.info("Customers was located succesfully");
+
+		} catch (Exception e) {
+			userMetaData.setMessage("Unable to find customer with id: " + id + " ,error: " + e.getMessage());
+			userMetaData.setHttpStatus(HttpStatus.BAD_REQUEST);
+			LOGGER.error("Unable to find customer with id: " + id + " ,error: " + e);
+		}
+
+		userResponse.setMetaData(userMetaData);
+		return new ResponseEntity<ServerResponse<Customer>>(userResponse, HttpStatus.OK);
+	}
+	// TODO GET /customers/{id}
+	// TODO PUT /customers/{id} -- body Json
+	// TODO DELETE /customers/{id}
 
 }
