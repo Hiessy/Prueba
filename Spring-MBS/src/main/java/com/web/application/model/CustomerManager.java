@@ -11,12 +11,11 @@ public class CustomerManager {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(CustomerManager.class);
 	
-	public Customer[] validateCustomer(Customer[] customers) throws CustomerException{
+	public Customer validateCustomer(Customer customer) throws CustomerException{
 		
 		LOGGER.info("Begin validating customers to check their all good before persistance.");
-		for(Customer customer : customers )
-				CustomerValidation.validateCustomer(customer);
+				
 
-		return customers;
+		return customer;
 	}
 }

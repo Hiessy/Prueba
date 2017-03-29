@@ -76,7 +76,7 @@ FOREIGN KEY (subcategory_id) REFERENCES subcategories(subcategory_id));
 
 CREATE TABLE personal_schedules (
 personal_schedule_id INT NOT NULL AUTO_INCREMENT,
-service_id INT(10) NOT NULL,
+personal_id INT(10) NOT NULL,
 sunday varchar(9),
 monday varchar(9),
 tuesday varchar(9),
@@ -86,7 +86,7 @@ friday varchar(9),
 saturday varchar(9),
 personal_state varchar(25),
 PRIMARY KEY (personal_schedule_id),
-FOREIGN KEY (service_id) REFERENCES services(service_id));
+FOREIGN KEY (personal_id) REFERENCES personal(personal_id));
 
 CREATE TABLE contacts (
 contact_id INT NOT NULL AUTO_INCREMENT,
@@ -112,13 +112,13 @@ FOREIGN KEY (contact_id) REFERENCES contacts(contact_id));
 
 CREATE TABLE personal (
 personal_id INT NOT NULL AUTO_INCREMENT,
-personal_schedule_id INT(10) NOT NULL,
+service_id INT(10) NOT NULL,
 contact_id INT(10) NOT NULL,
 personal_name varchar(255) NOT NULL,
 email varchar(255) NOT NULL UNIQUE,
 password varchar(255),
 PRIMARY KEY (personal_id),
-FOREIGN KEY (personal_schedule_id) REFERENCES personal_schedules(personal_schedule_id));
+FOREIGN KEY (service_id) REFERENCES services(service_id));
 
 CREATE TABLE profiles (
 profile_id INT NOT NULL AUTO_INCREMENT,

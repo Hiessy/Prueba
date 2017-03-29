@@ -26,8 +26,7 @@ public class CustomersDAOTest {
 	public void setUp() {
 		// creates an HSQL in-memory database populated from default scripts
 		// classpath:schema.sql and classpath:data.sql
-		db = new EmbeddedDatabaseBuilder().generateUniqueName(true)
-				.setType(org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2)
+		db = new EmbeddedDatabaseBuilder().setType(org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2)
 				.setScriptEncoding("UTF-8").ignoreFailedDrops(true).addScript("/datasource/create_schema.sql")
 				.addScript("/datasource/insert_data.sql").build();
 	}

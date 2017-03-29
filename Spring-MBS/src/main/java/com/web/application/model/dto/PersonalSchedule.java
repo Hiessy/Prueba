@@ -1,29 +1,98 @@
 package com.web.application.model.dto;
 
-import java.util.HashMap;
-import java.util.List;
-
 public class PersonalSchedule {
 	
-	String Name;
-	HashMap<String, List<AppointmentSlot>> Appointments;
+	private int PersonalScheduleId;
+	private int personalId;
+	private String monday;
+	private String tuesday;
+	private String wednesday; 
+	private String thursday;
+	private String friday; 
+	private String saturday;
+	private String sunday;
+	private String personalState;	
 	
-	public PersonalSchedule(String name, HashMap<String, List<AppointmentSlot>> appointments) {
+	public PersonalSchedule(int personalScheduleId, int personalId, String monday, String tuesday, String wednesday, String thursday, String friday, String saturday, String sunday, String personalState) {
 		super();
-		Name = name;
-		Appointments = appointments;
+		PersonalScheduleId = personalScheduleId;
+		this.personalId = personalId;
+		this.monday = monday;
+		this.tuesday = tuesday;
+		this.wednesday = wednesday;
+		this.thursday = thursday;
+		this.friday = friday;
+		this.saturday = saturday;
+		this.sunday = sunday;
+		this.personalState = personalState;
 	}
-	public String getName() {
-		return Name;
+	
+	public int getPersonalScheduleId() {
+		return PersonalScheduleId;
 	}
-	public void setName(String name) {
-		Name = name;
+	public void setPersonalScheduleId(int personalScheduleId) {
+		PersonalScheduleId = personalScheduleId;
 	}
-	public HashMap<String, List<AppointmentSlot>> getAppointments() {
-		return Appointments;
+	public int getPersonalId() {
+		return personalId;
 	}
-	public void setAppointments(HashMap<String, List<AppointmentSlot>> appointments) {
-		Appointments = appointments;
+	public void setPersonalId(int personalId) {
+		this.personalId = personalId;
 	}
+	public String getMonday() {
+		return monday;
+	}
+	public void setMonday(String monday) {
+		this.monday = monday;
+	}
+	public String getTuesday() {
+		return tuesday;
+	}
+	public void setTuesday(String tuesday) {
+		this.tuesday = tuesday;
+	}
+	public String getWednesday() {
+		return wednesday;
+	}
+	public void setWednesday(String wednesday) {
+		this.wednesday = wednesday;
+	}
+	public String getThursday() {
+		return thursday;
+	}
+	public void setThursday(String thursday) {
+		this.thursday = thursday;
+	}
+	public String getFriday() {
+		return friday;
+	}
+	public void setFriday(String friday) {
+		this.friday = friday;
+	}
+	public String getSaturday() {
+		return saturday;
+	}
+	public void setSaturday(String saturday) {
+		this.saturday = saturday;
+	}
+	public String getSunday() {
+		return sunday;
+	}
+	public void setSunday(String sunday) {
+		this.sunday = sunday;
+	}
+	public String getPersonalState() {
+		return personalState;
+	}
+	public void setPersonalState(String personalState) {
+		this.personalState = personalState;
+	}
+	@Override
+	public String toString() {
+		return "PersonalSchedule [PersonalScheduleId=" + PersonalScheduleId + ", personalId=" + personalId + ", monday=" + monday + ", tuesday=" + tuesday + ", wednesday=" + wednesday + ", thursday=" + thursday + ", friday=" + friday + ", saturday=" + saturday + ", sunday="
+				+ sunday + ", personalState=" + personalState + "]";
+	}
+	
+
 	
 }

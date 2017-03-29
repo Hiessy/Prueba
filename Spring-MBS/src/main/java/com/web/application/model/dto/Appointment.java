@@ -29,6 +29,7 @@ public class Appointment {
 	private Date customerConfirmationDate;// Confirmacion_Turno_Cli_Fecha
 	private Date providerConfirmationDate;// Confirmacion_Turno_Prov_Fecha
 	private ChannelType channelType;// Canal_Turno
+	
 	public Integer getAppointmentId() {
 		return appointmentId;
 	}

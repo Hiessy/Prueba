@@ -91,7 +91,7 @@ public class AppointmentHandler {
 			} else {
 				String start = startSession.toString();
 				String dateSlot = (start.length() == 3 ? "0" + start : start);
-				resultOpen.add(new AppointmentSlot(dateSlot, "/api/" + personalId + "/" + date + dateSlot + "/appointment"));
+				resultOpen.add(new AppointmentSlot(dateSlot, "/api/appointment/" + personalId + "/date/" + date + dateSlot));
 			}
 
 		}

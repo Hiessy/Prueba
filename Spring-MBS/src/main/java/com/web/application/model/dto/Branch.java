@@ -10,6 +10,7 @@ public class Branch {
 	private Address address;
 	private String branchState;// Estado_Sucursal
 	private List<Service> services;
+	
 	public int getBranchId() {
 		return branchId;
 	}

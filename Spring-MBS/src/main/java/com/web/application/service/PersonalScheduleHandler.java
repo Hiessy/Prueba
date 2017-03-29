@@ -7,14 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.web.application.model.dto.AppointmentSlot;
-import com.web.application.model.dto.Provider;
+import com.web.application.model.dto.Personal;
 
 public class PersonalScheduleHandler {
 
 	private static String[] workingDaysMethod = { "getSunday", "getMonday", "getTuesday", "getWednesday", "getThursday", "getFriday", "getSaturday" };
 	private AppointmentHandler apoHa = new AppointmentHandler();
 
-	public HashMap<String, List<AppointmentSlot>> getScheduleForProvider(Provider provider, List<String> takenSlots) {
+	public HashMap<String, List<AppointmentSlot>> getScheduleForProvider(Personal personal, List<String> takenSlots) {
 
 		HashMap<String, List<AppointmentSlot>> mapByProvider = new HashMap<String, List<AppointmentSlot>>();
 		int initial = LocalDate.now().getDayOfMonth();
@@ -26,8 +26,8 @@ public class PersonalScheduleHandler {
 
 			for (int i = 0; i < workingDaysMethod.length; i++) {
 
-				Method method = provider.getClass().getMethod(workingDaysMethod[i]);
-				if (!"0000:0000".equals(method.invoke(provider)))
+				Method method = personal.getClass().getMethod(workingDaysMethod[i]);
+				if (!"0000:0000".equals(method.invoke(personal)))
 					methods.put(method.getName().substring(3, method.getName().length()).toUpperCase(), method);
 			}
 
@@ -42,9 +42,9 @@ public class PersonalScheduleHandler {
 				String schedule = null;
 
 				if (methods.get(dayName) != null) {
-					schedule = (String) methods.get(dayName).invoke(provider);
+					schedule = (String) methods.get(dayName).invoke(personal);
 					// Setting handler
-					apoHa.setProviderId(provider.getProviderId());
+					apoHa.setProviderId(personal.getPersonalId());
 					apoHa.setDate(key);
 					apoHa.setDuration(3 * 5);
 					apoHa.setStart(Integer.valueOf(schedule.substring(0, 4)));
