@@ -5,13 +5,13 @@ import org.slf4j.LoggerFactory;
 
 import com.web.application.model.dto.Customer;
 
+
 public class CustomerDAO {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(CustomerDAO.class);
 
 
 	public CustomerDAO() {
-
 	}
 
 	// TODO manejar la logica para multiples insert si uno falla y otro funca
@@ -22,8 +22,10 @@ public class CustomerDAO {
 	}
 
 	public Customer getCustomers(String id) {
+
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

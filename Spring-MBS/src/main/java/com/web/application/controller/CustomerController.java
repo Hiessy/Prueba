@@ -2,6 +2,7 @@ package com.web.application.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,9 @@ import com.web.application.model.validation.CustomerValidation;
 public class CustomerController {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(CustomerController.class);
+
 	private CustomerDAO customerDAO = new CustomerDAO();
+
 
 	// TODO POST A CUSTOMER /customers 
 	@RequestMapping(value = "/customers", method = RequestMethod.POST)
@@ -37,6 +40,7 @@ public class CustomerController {
 			userMetaData.setHttpStatus(HttpStatus.OK);
 			CustomerValidation.validateCustomer(customer);
 			userResponse.setData(customerDAO.addCustomers(customer));
+
 			LOGGER.info("Customers were registered succesfully");
 
 		} catch (Exception e) {
@@ -59,7 +63,7 @@ public class CustomerController {
 		try {
 			userMetaData.setMessage("Customers was located succesfully");
 			userMetaData.setHttpStatus(HttpStatus.OK);
-			userResponse.setData(customerDAO.getCustomers(id));
+			//userResponse.setData(customerDAO.getCustomers(id));
 			LOGGER.info("Customers was located succesfully");
 
 		} catch (Exception e) {

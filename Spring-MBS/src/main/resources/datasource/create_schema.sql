@@ -14,7 +14,6 @@ FLUSH PRIVILEGES;
 
 */
 
-
 CREATE TABLE categories (
 category_id INT(6) NOT NULL AUTO_INCREMENT,
 category_name varchar(255) NOT NULL UNIQUE,
